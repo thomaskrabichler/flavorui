@@ -102,18 +102,19 @@ export function Header() {
     <header className="pt-10">
       <Container>
         <nav className="relative z-50 flex justify-between items-center">
-          {/* Logo container */}
+          {/* Logo*/}
           <div className="flex justify-start">
             <Link href="#" aria-label="Home">
               <Logo className="h-10 w-auto" />
             </Link>
           </div>
 
-          {/* Navigation links container */}
+          {/* Navigation links */}
           <div className="flex-grow justify-center items-center gap-x-6 hidden md:flex text-sm font-semibold">
             <NavLink href="#components">Components</NavLink>
             <NavLink href="#blocks">Blocks</NavLink>
             <NavLink href="#templates">Templates</NavLink>
+            {/* <NavLink href="#demo">Demo</NavLink> */}
           </div>
 
           {/* Sign in/Register container */}

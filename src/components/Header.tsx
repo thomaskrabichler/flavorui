@@ -101,25 +101,28 @@ export function Header() {
   return (
     <header className="pt-10">
       <Container>
-        <nav className="relative z-50 flex justify-between">
-          <div className="flex items-center md:gap-x-12">
+        <nav className="relative z-50 flex justify-between items-center">
+          {/* Logo container */}
+          <div className="flex justify-start">
             <Link href="#" aria-label="Home">
               <Logo className="h-10 w-auto" />
             </Link>
-            <div className="hidden md:flex md:gap-x-6">
-              <NavLink href="#features">Features</NavLink>
-              <NavLink href="#testimonials">Testimonials</NavLink>
-              <NavLink href="#pricing">Pricing</NavLink>
-            </div>
           </div>
-          <div className="flex items-center gap-x-5 md:gap-x-8">
-            <div className="hidden md:block">
+
+          {/* Navigation links container */}
+          <div className="flex-grow justify-center items-center gap-x-6 hidden md:flex text-sm font-semibold">
+            <NavLink href="#components">Components</NavLink>
+            <NavLink href="#blocks">Blocks</NavLink>
+            <NavLink href="#templates">Templates</NavLink>
+          </div>
+
+          {/* Sign in/Register container */}
+          <div className="flex justify-end items-center gap-x-5 md:gap-x-8">
+            <div className="hidden md:block text-sm font-semibold">
               <NavLink href="/login">Sign in</NavLink>
             </div>
-            <Button href="/register" color="blue">
-              <span>
-                Get started <span className="hidden lg:inline">today</span>
-              </span>
+            <Button href="/register" color="slate">
+            Get all-access
             </Button>
             <div className="-mr-1 md:hidden">
               <MobileNavigation />

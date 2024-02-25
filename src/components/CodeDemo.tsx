@@ -2,6 +2,7 @@
 import { useState } from "react"
 import { Button } from "./Button"
 import { Container } from "./Container"
+import SignInPreview from "./SignInPreview"
 
 export function CodeDemo() {
   const [activeView, setActiveView] = useState("code")
@@ -43,15 +44,14 @@ export function CodeDemo() {
         <div className="mx-auto max-w-2xl lg:flex lg:max-w-none lg:gap-3">
           {/* Code container - always visible on lg screens, toggled on smaller screens */}
           <div
-            className={`h-100 rounded-xl bg-slate-900 ${activeView === "code" ? "block" : "hidden md:hidden"} lg:block lg:w-2/3`}
+            className={`h-100 rounded-xl bg-slate-900 ${activeView === "code" ? "block" : "hidden md:hidden"} lg:block lg:w-full`}
           >
-            <p>Code Container</p>
+            <p className="mx-auto text-white">Code Container</p>
           </div>
-          {/* Preview container - always visible on lg screens, toggled on smaller screens */}
           <div
-            className={`h-100 bg-blue-300 ${activeView === "preview" ? "block" : "hidden md:hidden"} lg:block lg:w-1/3`}
+            className={`mx-auto h-100 max-w-[340px] rounded-lg border-2 ${activeView === "preview" ? "block" : "hidden md:hidden"} lg:block lg:w-1/3`}
           >
-            <p className="text-center">Preview Container</p>
+            <SignInPreview />
           </div>
         </div>
       </Container>

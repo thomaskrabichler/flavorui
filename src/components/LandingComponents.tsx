@@ -33,6 +33,9 @@ export function LandingComponents() {
           </p>
         </div>
         <GridComponents />
+        <div className="mt-14 flex justify-center">
+          <Button variant="outline">More Components</Button>
+        </div>
       </Container>
     </section>
   )

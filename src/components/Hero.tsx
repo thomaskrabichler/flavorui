@@ -1,6 +1,6 @@
-import { Button } from "./Button";
-import { Container } from "./Container";
-import Features from "./Features";
+import { Button } from "./Button"
+import { Container } from "./Container"
+import Features from "./Features"
 
 export default function Hero() {
   return (
@@ -17,10 +17,10 @@ export default function Hero() {
           </p>
           <div className="mt-10 flex items-center gap-x-6">
             <Button href="/components" color="slate">
-            Browse Components
+              Browse Components
             </Button>
             <Button href="/blocks" color="slate" variant="outline">
-            Explore Blocks 
+              Explore Blocks
             </Button>
           </div>
         </div>
@@ -39,7 +39,7 @@ export default function Hero() {
         {/*   </div> */}
         {/* </div> */}
       </Container>
-      <Features/>
+      <Features />
     </div>
-  );
+  )
 }

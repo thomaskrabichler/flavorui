@@ -39,7 +39,6 @@ export function CodeDemo() {
               </Button>
             </div>
           </div>
-          {/* <p>Sign-in Block</p> */}
         </div>
         <div className="mx-auto max-w-2xl lg:flex lg:max-w-none lg:gap-3">
           {/* Code container - always visible on lg screens, toggled on smaller screens */}

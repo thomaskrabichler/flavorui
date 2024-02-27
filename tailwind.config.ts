@@ -21,7 +21,7 @@ export default {
       "9xl": ["8rem", { lineHeight: "1" }],
     },
     extend: {
-      height: { 100: "36rem" },
+      height: { 100: "36rem", 104: "38rem" },
       borderRadius: {
         "4xl": "2rem",
       },

@@ -1,14 +1,14 @@
-'use client'
+"use client"
 
-import { Fragment } from 'react'
-import Link from 'next/link'
-import { Popover, Transition } from '@headlessui/react'
-import clsx from 'clsx'
+import { Fragment } from "react"
+import Link from "next/link"
+import { Popover, Transition } from "@headlessui/react"
+import clsx from "clsx"
 
-import { Button } from '~/components/Button'
-import { Container } from '~/components/Container'
-import { Logo } from '~/components/Logo'
-import { NavLink } from '~/components/NavLink'
+import { Button } from "~/components/Button"
+import { Container } from "~/components/Container"
+import { Logo } from "~/components/Logo"
+import { NavLink } from "~/components/NavLink"
 
 function MobileNavLink({
   href,
@@ -36,15 +36,15 @@ function MobileNavIcon({ open }: { open: boolean }) {
       <path
         d="M0 1H14M0 7H14M0 13H14"
         className={clsx(
-          'origin-center transition',
-          open && 'scale-90 opacity-0',
+          "origin-center transition",
+          open && "scale-90 opacity-0",
         )}
       />
       <path
         d="M2 2L12 12M12 2L2 12"
         className={clsx(
-          'origin-center transition',
-          !open && 'scale-90 opacity-0',
+          "origin-center transition",
+          !open && "scale-90 opacity-0",
         )}
       />
     </svg>
@@ -55,7 +55,7 @@ function MobileNavigation() {
   return (
     <Popover>
       <Popover.Button
-        className="relative z-10 flex h-8 w-8 items-center justify-center ui-not-focus-visible:outline-none"
+        className="ui-not-focus-visible:outline-none relative z-10 flex h-8 w-8 items-center justify-center"
         aria-label="Toggle Navigation"
       >
         {({ open }) => <MobileNavIcon open={open} />}
@@ -101,16 +101,16 @@ export function Header() {
   return (
     <header className="pt-10">
       <Container>
-        <nav className="relative z-50 flex justify-between items-center">
+        <nav className="relative z-50 flex items-center justify-between">
           {/* Logo*/}
           <div className="flex justify-start">
-            <Link href="#" aria-label="Home">
+            <Link href="/" aria-label="Home">
               <Logo className="h-10 w-auto" />
             </Link>
           </div>
 
           {/* Navigation links */}
-          <div className="flex-grow justify-center items-center gap-x-6 hidden md:flex text-sm font-semibold">
+          <div className="hidden flex-grow items-center justify-center gap-x-6 text-sm font-semibold md:flex">
             <NavLink href="#components">Components</NavLink>
             <NavLink href="#blocks">Blocks</NavLink>
             <NavLink href="#templates">Templates</NavLink>
@@ -118,12 +118,12 @@ export function Header() {
           </div>
 
           {/* Sign in/Register container */}
-          <div className="flex justify-end items-center gap-x-5 md:gap-x-8">
-            <div className="hidden md:block text-sm font-semibold">
+          <div className="flex items-center justify-end gap-x-5 md:gap-x-8">
+            <div className="hidden text-sm font-semibold md:block">
               <NavLink href="/login">Sign in</NavLink>
             </div>
             <Button href="/register" color="slate">
-            Get all-access
+              Get all-access
             </Button>
             <div className="-mr-1 md:hidden">
               <MobileNavigation />

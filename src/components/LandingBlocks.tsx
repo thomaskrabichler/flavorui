@@ -1,3 +1,4 @@
+import Link from "next/dist/client/link"
 import { Button } from "./Button"
 import { Container } from "./Container"
 import GridBlocks from "./GridBlocks"
@@ -25,9 +26,11 @@ export function LandingBlocks() {
           </p>
         </div>
         <GridBlocks />
-        <div className="mt-14 flex justify-center">
-          <Button variant="outline">More Blocks</Button>
-        </div>
+        <Link href="/blocks">
+          <div className="mt-14 flex justify-center">
+            <Button variant="outline">More Blocks</Button>
+          </div>
+        </Link>
       </Container>
     </section>
   )

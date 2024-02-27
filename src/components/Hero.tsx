@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Button } from "./Button"
 import { Container } from "./Container"
 import Features from "./Features"
@@ -19,9 +20,11 @@ export default function Hero() {
             <Button href="/components" color="slate">
               Browse Components
             </Button>
-            <Button href="/blocks" color="slate" variant="outline">
-              Explore Blocks
-            </Button>
+            <Link href="/blocks">
+              <Button color="slate" variant="outline">
+                Explore Blocks
+              </Button>
+            </Link>
           </div>
         </div>
         {/* Screenshot */}

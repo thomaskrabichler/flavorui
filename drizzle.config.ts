@@ -8,5 +8,4 @@ export default {
   dbCredentials: {
     uri: env.DATABASE_URL,
   },
-  tablesFilter: ["flavorui_*"],
 } satisfies Config;

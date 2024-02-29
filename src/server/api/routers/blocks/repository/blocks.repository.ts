@@ -2,8 +2,12 @@ import { db } from "~/server/db"
 import { type Block, type BlockVariant } from "./blocks.repository.types"
 import { blockVariants } from "~/server/db/schema"
 import { eq } from "drizzle-orm"
+import {Logger} from "~/server/api/common/logger";
 
 class BlocksRepository {
+
+  // private readonly logger = new Logger(BlocksRepository.name);
+
   public async getBlocks(): Promise<Block[]> {
     return await db.query.blocks.findMany()
   }

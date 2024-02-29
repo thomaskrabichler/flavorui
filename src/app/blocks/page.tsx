@@ -5,6 +5,7 @@ import { Header } from "~/components/Header"
 import HeadingBlocks from "~/components/blocks/HeadingBlocks"
 import FilterBlocks from "~/components/blocks/FilterBlocks"
 import AllBlocks from "~/components/blocks/AllBlocks"
+import {api} from "~/trpc/server"
 
 export default async function Blocks() {
   noStore()

@@ -8,7 +8,7 @@ import { blocksService } from "./service/blocks.service"
 import { z } from "zod"
 
 export const blocksRouter = createTRPCRouter({
-  getAllBlocks: publicProcedure.query(async (): Promise<GetBlocks> => {
+  getAllBlocks: publicProcedure.query(async ({ ctx }): Promise<GetBlocks> => {
     return blocksService.getBlocks()
   }),
   getPublicVariants: publicProcedure

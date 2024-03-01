@@ -1,4 +1,7 @@
+// import "server-only"
+
 import Footer from "~/components/Footer"
+import { unstable_noStore as noStore } from "next/cache";
 
 import { Header } from "~/components/Header"
 import HeadingBlocks from "~/components/blocks/HeadingBlocks"
@@ -11,6 +14,7 @@ import CategorySelection from "~/components/blocks/CategorySelection"
 import SearchInput from "~/components/blocks/SearchInput"
 
 export default async function Blocks() {
+  noStore();
   const blocks = await api.blocks.getAllBlocks.query()
   // const blocks = await api.blocks.getAllBlocks.useQuery(undefined, {
   //   staleTime: 1000 * 60 * 5, // 5 minutes

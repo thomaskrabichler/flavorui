@@ -6,8 +6,10 @@ import { Header } from "~/components/Header"
 import Hero from "~/components/Hero"
 import { LandingBlocks } from "~/components/LandingBlocks"
 import { LandingComponents } from "~/components/LandingComponents"
+import { unstable_noStore as noStore } from "next/cache"
 
 export default async function Home() {
+  noStore()
   return (
     <>
       <Header />

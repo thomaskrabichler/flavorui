@@ -62,25 +62,25 @@ export const api = createTRPCProxyClient<AppRouter>({
       enabled: (op) =>
         process.env.NODE_ENV === "development" ||
         (op.direction === "down" && op.result instanceof Error),
-      // logger: (opts) => {
-      //   if (opts.direction === "up") {
-      //     console.log(pc.orange(`\n>> [tRPC ${opts.type}] ${opts.path}`))
-      //   } else if (opts.direction === "down") {
-      //     if (opts.result instanceof Error || "error" in opts.result.result) {
-      //       console.log(
-      //         pc.red(
-      //           `<< [tRPC ${opts.path}] ${opts.elapsedMs.toFixed(2)}ms ${JSON.stringify(opts.result)}`,
-      //         ),
-      //       )
-      //     } else {
-      //       console.log(
-      //         pc.cyan(
-      //           `<< [tRPC ${opts.path}] ${opts.elapsedMs.toFixed(2)}ms\n`,
-      //         ),
-      //       )
-      //     }
-      //   }
-      // },
+      logger: (opts) => {
+        if (opts.direction === "up") {
+          console.log(pc.orange(`\n>> [tRPC ${opts.type}] ${opts.path}`))
+        } else if (opts.direction === "down") {
+          if (opts.result instanceof Error || "error" in opts.result.result) {
+            console.log(
+              pc.red(
+                `<< [tRPC ${opts.path}] ${opts.elapsedMs.toFixed(2)}ms ${JSON.stringify(opts.result)}`,
+              ),
+            )
+          } else {
+            console.log(
+              pc.cyan(
+                `<< [tRPC ${opts.path}] ${opts.elapsedMs.toFixed(2)}ms\n`,
+              ),
+            )
+          }
+        }
+      },
     }),
     /**
      * Custom RSC link that lets us invoke procedures without using http requests. Since Server

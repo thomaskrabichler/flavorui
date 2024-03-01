@@ -12,6 +12,7 @@ class BlocksRepository {
   public async getBlocks(
     db: PlanetScaleDatabase<typeof schema>,
   ): Promise<Block[]> {
+
     return await db.query.blocks.findMany()
   }
 

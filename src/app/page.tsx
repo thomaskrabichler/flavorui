@@ -9,7 +9,7 @@ import { LandingComponents } from "~/components/LandingComponents"
 import { unstable_noStore as noStore } from "next/cache"
 
 export default async function Home() {
-  noStore()
+  // noStore()
   return (
     <>
       <Header />

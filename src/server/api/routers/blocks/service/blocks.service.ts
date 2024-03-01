@@ -24,7 +24,10 @@ class BlocksService {
     const getCachedPublicVariants = unstable_cache(
       async () => blocksRepository.getPublicVariantsById(db, blockId),
       ["public-block-variants", blockId.toString()],
-      { revalidate: revalidationTime },
+      {
+        revalidate: revalidationTime,
+        tags: ["public-block-variants"],
+      },
     )
 
     const variants = await getCachedPublicVariants()
@@ -37,7 +40,10 @@ class BlocksService {
     const getCachedBlocks = unstable_cache(
       async () => blocksRepository.getBlocks(db),
       ["blocks-nocode"],
-      { revalidate: revalidationTime },
+      {
+        revalidate: revalidationTime,
+        tags: ["blocks-nocode"],
+      },
     )
 
     const blocks = await getCachedBlocks()

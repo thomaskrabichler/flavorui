@@ -111,9 +111,9 @@ export function Header() {
 
           {/* Navigation links */}
           <div className="hidden flex-grow items-center justify-center gap-x-6 text-sm font-semibold md:flex">
-            <NavLink href="#components">Components</NavLink>
-            <NavLink href="#blocks">Blocks</NavLink>
-            <NavLink href="#templates">Templates</NavLink>
+            <NavLink href="/components">Components</NavLink>
+            <NavLink href="/blocks">Blocks</NavLink>
+            <NavLink href="/templates">Templates</NavLink>
             {/* <NavLink href="#demo">Demo</NavLink> */}
           </div>
 

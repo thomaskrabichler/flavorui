@@ -16,14 +16,6 @@ import SearchInput from "~/components/blocks/SearchInput"
 export default async function Blocks() {
   // noStore();
   const blocks = await api.blocks.getAllBlocks.query()
-  // const blocks = await api.blocks.getAllBlocks.useQuery(undefined, {
-  //   staleTime: 1000 * 60 * 5, // 5 minutes
-  // })
-  // const blocksQuery = api.blocks.getAllBlocks.useQuery(undefined, {
-  //   staleTime: 1000 * 60 * 5, // 5 minutes
-  // })
-
-  // const blocksCount = blocksQuery.data!.length ?? 0
 
   return (
     <>

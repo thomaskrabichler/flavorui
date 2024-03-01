@@ -2,7 +2,7 @@ import { Container } from "../Container"
 
 export default function HeadingBlocks() {
   return (
-    <Container className="pt-16">
+    <Container className="pt-20">
       <h1 className="mb-2 text-3xl font-extrabold">
         Flavor Blocks - Flutter UI components
       </h1>

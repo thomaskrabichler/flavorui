@@ -3,6 +3,7 @@ export type Block = {
   name: string
   description?: string
   category: string
+  imagePath: string | null | undefined
   createdAt: Date
   updatedAt: Date | null
 }

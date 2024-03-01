@@ -14,20 +14,6 @@ import {
 
 export const createTable = mysqlTableCreator((name) => name)
 
-export const posts = createTable(
-  "post",
-  {
-    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-    name: varchar("name", { length: 256 }),
-    createdAt: timestamp("created_at")
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updatedAt").onUpdateNow(),
-  },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
-  }),
-)
 
 export const components = createTable(
   "component",
@@ -54,6 +40,7 @@ export const blocks = createTable(
     id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
     name: varchar("name", { length: 256 }).notNull(),
     description: text("description").notNull(),
+    // imagePath: text("imagePath").notNull(),
     category: varchar("category", { length: 256 }).notNull(),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)

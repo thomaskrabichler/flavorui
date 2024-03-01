@@ -1,9 +1,9 @@
-import { postRouter } from "~/server/api/routers/post"
+// import { postRouter } from "~/server/api/routers/post"
 import { createTRPCRouter } from "~/server/api/trpc"
 import { blocksRouter } from "./routers/blocks/blocks.router"
 
 export const appRouter = createTRPCRouter({
-  post: postRouter,
+  // post: postRouter,
   blocks: blocksRouter,
 })
 

@@ -15,20 +15,48 @@ import { appRouter, type AppRouter } from "~/server/api/root"
 import { createTRPCContext } from "~/server/api/trpc"
 import { transformer } from "./shared"
 import pc from "~/server/api/common/pc"
+import * as trpcNext from "@trpc/server/adapters/next"
 
 /**
  * This wraps the `createTRPCContext` helper and provides the required context for the tRPC API when
  * handling a tRPC call from a React Server Component.
  */
+// const ONE_DAY_IN_SECONDS = 60 * 60 * 24
 const createContext = cache(() => {
   const heads = new Headers(headers())
   heads.set("x-trpc-source", "rsc")
+  // heads.set(
+  //   "cache-control",
+  //   `s-maxage=5260, stale-while-revalidate=${ONE_DAY_IN_SECONDS}`,
+  // )
 
   return createTRPCContext({
     headers: heads,
   })
 })
-
+// export default trpcNext.createNextApiHandler({
+//   router: appRouter,
+//   createContext,
+//   responseMeta(opts) {
+//     const { ctx, paths, errors, type } = opts
+//     // assuming you have all your public routes with the keyword `public` in them
+//     const allPublic = paths && paths.every((path) => path.includes("public"))
+//     // checking that no procedures errored
+//     const allOk = errors.length === 0
+//     // checking we're doing a query request
+//     const isQuery = type === "query"
+//     if (isQuery) {
+//       // cache request for 1 day + revalidate once every second
+//       const ONE_DAY_IN_SECONDS = 60 * 60 * 24
+//       return {
+//         headers: {
+//           "cache-control": `s-maxage=21222, stale-while-revalidate=${ONE_DAY_IN_SECONDS}`,
+//         },
+//       }
+//     }
+//     return {}
+//   },
+// })
 export const api = createTRPCProxyClient<AppRouter>({
   transformer,
   links: [

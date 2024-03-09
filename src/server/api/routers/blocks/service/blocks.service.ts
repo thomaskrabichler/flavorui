@@ -12,18 +12,18 @@ import { revalidationTime } from "~/server/api/common/utils/server.constants"
 class BlocksService {
   public async getPremiumVariants(
     db: PlanetScaleDatabase<typeof schema>,
-    blockId: number,
+    slug: string,
   ): Promise<GetPremiumBlockVariants> {
-    return blocksRepository.getPremiumVariantsById(db, blockId)
+    return blocksRepository.getPremiumVariantsBySlug(db, slug)
   }
 
   public async getPublicVariants(
     db: PlanetScaleDatabase<typeof schema>,
-    blockId: number,
+    slug: string,
   ): Promise<GetPublicBlockVariants> {
     const getCachedPublicVariants = unstable_cache(
-      async () => blocksRepository.getPublicVariantsById(db, blockId),
-      ["public-block-variants", blockId.toString()],
+      async () => blocksRepository.getPublicVariantsBySlug(db, slug),
+      ["public-block-variants", slug],
       {
         revalidate: revalidationTime,
         tags: ["public-block-variants"],

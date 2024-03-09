@@ -12,16 +12,15 @@ class BlocksRepository {
   public async getBlocks(
     db: PlanetScaleDatabase<typeof schema>,
   ): Promise<Block[]> {
-
     return await db.query.blocks.findMany()
   }
 
-  public async getPublicVariantsById(
+  public async getPublicVariantsBySlug(
     db: PlanetScaleDatabase<typeof schema>,
-    blockId: number,
+    slug: string,
   ): Promise<BlockVariant[]> {
     const rows = await db.query.blockVariants.findMany({
-      where: eq(blockVariants.blockId, blockId),
+      where: eq(blockVariants.blockSlug, slug),
     })
 
     const variants: BlockVariant[] = rows.map((variant) => ({
@@ -32,12 +31,12 @@ class BlocksRepository {
     return variants
   }
 
-  public async getPremiumVariantsById(
+  public async getPremiumVariantsBySlug(
     db: PlanetScaleDatabase<typeof schema>,
-    blockId: number,
+    slug: string,
   ): Promise<BlockVariant[]> {
     const rows = await db.query.blockVariants.findMany({
-      where: eq(blockVariants.blockId, blockId),
+      where: eq(blockVariants.blockSlug, slug),
     })
 
     return rows

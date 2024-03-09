@@ -12,16 +12,25 @@ import BlocksPageGrid from "~/components/blocks/BlocksPageGrid"
 import { Container } from "~/components/Container"
 import CategorySelection from "~/components/blocks/CategorySelection"
 import SearchInput from "~/components/blocks/SearchInput"
+import GenerateVariantsButton from "~/app/utils/generate-variants-button"
+import { type CreateBlockVariant } from "~/server/api/routers/blocks/repository/blocks.repository.types"
 
 export default async function Blocks() {
   // noStore();
   const blocks = await api.blocks.getAllBlocks.query()
-
+  const handleVariantsGenerated = (generatedVariants: CreateBlockVariant[]) => {
+    // Additional actions can be taken here, like displaying a success message
+    // generatedVariants.forEach((e)=> api.)
+  }
   return (
     <>
       <Header />
       <main>
         <HeadingBlocks />
+        <GenerateVariantsButton
+          blocks={blocks}
+          onVariantsGenerated={handleVariantsGenerated}
+        />
         <Container>
           <div className="mb-6 max-w-none  justify-between rounded-lg bg-gray-100 p-4 ring-1 ring-gray-900/10 sm:flex">
             <div className="gap-4 sm:flex">

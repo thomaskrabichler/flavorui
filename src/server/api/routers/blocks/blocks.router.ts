@@ -12,14 +12,14 @@ export const blocksRouter = createTRPCRouter({
     return blocksService.getBlocks(ctx.db)
   }),
   getPublicVariants: publicProcedure
-    .input(z.object({ blockId: z.number() }))
+    .input(z.object({ slug: z.string() }))
     .query(async ({ ctx, input }) => {
-      return blocksService.getPublicVariants(ctx.db, input.blockId)
+      return blocksService.getPublicVariants(ctx.db, input.slug)
     }),
 
   getPremiumVariants: protectedProcedure
-    .input(z.object({ blockId: z.number() }))
+    .input(z.object({ slug: z.string() }))
     .query(async ({ ctx, input }) => {
-      return blocksService.getPremiumVariants(ctx.db, input.blockId)
+      return blocksService.getPremiumVariants(ctx.db, input.slug)
     }),
 })

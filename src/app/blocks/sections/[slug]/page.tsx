@@ -7,15 +7,24 @@ import { api } from "~/trpc/server"
 export default async function BlockDetailsPage({
   params,
 }: {
-  params: { block: string }
+  params: { slug: string }
 }) {
-  const blockVariants = await api.blocks.getPublicVariants.query({ blockId: 8 })
+  const blockVariants = await api.blocks.getPublicVariants.query({
+    slug: params.slug,
+  })
+
+  const blocks = await api.blocks.getAllBlocks.query()
+  const block = blocks.find((block) => block.slug === params.slug)
+
+  const slug = params.slug
   return (
     <>
       <Header />
       <main>
         <Container className="pt-20">
-          <h1 className="mb-2 text-3xl font-extrabold">Pricing Sections</h1>
+          <h1 className="mb-2 text-3xl font-extrabold">
+            {block?.name ?? slug}{" "}
+          </h1>
         </Container>
         <ul role="list">
           {blockVariants.map((variant) => (

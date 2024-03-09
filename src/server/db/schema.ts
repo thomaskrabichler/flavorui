@@ -14,7 +14,6 @@ import {
 
 export const createTable = mysqlTableCreator((name) => name)
 
-
 export const components = createTable(
   "component",
   {
@@ -34,13 +33,15 @@ export const components = createTable(
     categoryIndex: index("category_idx").on(component.category),
   }),
 )
+
 export const blocks = createTable(
   "block",
   {
     id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
     name: varchar("name", { length: 256 }).notNull(),
-    description: text("description").notNull(),
-    // imagePath: text("imagePath").notNull(),
+    slug: varchar("slug", { length: 256 }).unique().notNull(), // Ensure slug is unique
+    description: text("description").default("").notNull(),
+    imagePath: text("imagePath").default("").notNull(),
     category: varchar("category", { length: 256 }).notNull(),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
@@ -48,19 +49,17 @@ export const blocks = createTable(
     updatedAt: timestamp("updated_at").onUpdateNow(),
   },
   (block) => ({
+    slugIndex: index("slug_idx").on(block.slug), // Index for slug
     nameIndex: index("name_idx").on(block.name),
     categoryIndex: index("category_idx").on(block.category),
   }),
 )
-export const blocksRelations = relations(blocks, ({ many }) => ({
-  blockVariants: many(blockVariants),
-}))
 
 export const blockVariants = createTable(
   "block_variant",
   {
     id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-    blockId: bigint("block_id", { mode: "number" }).notNull(),
+    blockSlug: varchar("block_slug", { length: 256 }).notNull(), // Use slug to relate to blocks
     variantName: varchar("variant_name", { length: 256 }).notNull(),
     isFree: boolean("is_free").default(false).notNull(),
     codeSnippet: text("code_snippet"),
@@ -70,18 +69,17 @@ export const blockVariants = createTable(
     updatedAt: timestamp("updated_at").onUpdateNow(),
   },
   (variant) => ({
-    blockIndex: index("block_idx").on(variant.blockId),
+    blockSlugIndex: index("block_slug_idx").on(variant.blockSlug), // Index for blockSlug
     variantNameIndex: index("variant_name_idx").on(variant.variantName),
   }),
 )
 
 export const blockVariantsRelation = relations(blockVariants, ({ one }) => ({
   block: one(blocks, {
-    fields: [blockVariants.blockId],
-    references: [blocks.id],
+    fields: [blockVariants.blockSlug], // Use blockSlug for relation
+    references: [blocks.slug], // Reference the slug field in blocks
   }),
 }))
-
 export const users = createTable(
   "user",
   {

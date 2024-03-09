@@ -22,7 +22,7 @@ export default function GridBlocks({
         {blocks !== undefined
           ? blocks.map((block, index) => (
               <li key={block.name}>
-                <BlockLink blockName={block.name} blockType="sections">
+                <BlockLink slug={block.slug} blockType="sections">
                   <div className="group relative cursor-pointer before:absolute before:-inset-2.5 before:rounded-[20px] before:bg-gray-50 before:opacity-0 hover:before:opacity-100">
                     <div className="relative aspect-[2/1] overflow-hidden rounded-lg bg-gray-100 ring-1 ring-gray-900/10">
                       {/* img */}

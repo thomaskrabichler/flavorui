@@ -1,16 +1,13 @@
 import Link from "next/link"
-import { formatForUrl } from "~/app/utils/string-utils"
 
 export function BlockLink({
   blockType,
-  blockName,
+  slug,
   children,
 }: {
   blockType: string
-  blockName: string
+  slug: string
   children: React.ReactNode
 }) {
-  const formattedName = formatForUrl(blockName)
-
-  return <Link href={`/blocks/${blockType}/${formattedName}`}>{children}</Link>
+  return <Link href={`/blocks/${blockType}/${slug}`}>{children}</Link>
 }

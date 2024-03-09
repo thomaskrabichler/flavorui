@@ -2,7 +2,7 @@ import { api } from "~/trpc/server"
 
 const categoryColors: Record<string, string> = {
   Marketing: "bg-green-100 text-green-900",
-  "Application UI": "bg-blue-100 text-blue-900",
+  Application: "bg-blue-100 text-blue-900",
 }
 
 export default async function GridBlocks() {
@@ -33,7 +33,7 @@ export default async function GridBlocks() {
                     {block.name}
                   </p>
                   <p className="block truncate text-sm font-medium text-gray-500">
-                  countt
+                    countt
                     {/* {block.count} Blocks */}
                   </p>
                 </div>

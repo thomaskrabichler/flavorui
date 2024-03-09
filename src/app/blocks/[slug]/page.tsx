@@ -3,6 +3,7 @@ import Footer from "~/components/Footer"
 import { Header } from "~/components/Header"
 import BlockDetailsItem from "~/components/blocks/BlockDetailsItem"
 import { api } from "~/trpc/server"
+import { notFound } from "next/navigation"
 
 export default async function BlockDetailsPage({
   params,
@@ -15,6 +16,10 @@ export default async function BlockDetailsPage({
 
   const blocks = await api.blocks.getAllBlocks.query()
   const block = blocks.find((block) => block.slug === params.slug)
+
+  if (!block) {
+    notFound()
+  }
 
   const slug = params.slug
   return (

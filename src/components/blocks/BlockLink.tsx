@@ -1,13 +1,13 @@
 import Link from "next/link"
 
 export function BlockLink({
-  blockType,
+  // blockType,
   slug,
   children,
 }: {
-  blockType: string
+  // blockType: string
   slug: string
   children: React.ReactNode
 }) {
-  return <Link href={`/blocks/${blockType}/${slug}`}>{children}</Link>
+  return <Link href={`/blocks/${slug}`}>{children}</Link>
 }

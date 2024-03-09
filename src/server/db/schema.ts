@@ -1,6 +1,3 @@
-// Example model schema from the Drizzle docs
-// https://orm.drizzle.team/docs/sql-schema-declaration
-
 import { relations, sql } from "drizzle-orm"
 import {
   bigint,
@@ -39,7 +36,7 @@ export const blocks = createTable(
   {
     id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
     name: varchar("name", { length: 256 }).notNull(),
-    slug: varchar("slug", { length: 256 }).unique().notNull(), // Ensure slug is unique
+    slug: varchar("slug", { length: 256 }).unique().notNull(), 
     description: text("description").default("").notNull(),
     imagePath: text("imagePath").default("").notNull(),
     category: varchar("category", { length: 256 }).notNull(),
@@ -49,7 +46,7 @@ export const blocks = createTable(
     updatedAt: timestamp("updated_at").onUpdateNow(),
   },
   (block) => ({
-    slugIndex: index("slug_idx").on(block.slug), // Index for slug
+    slugIndex: index("slug_idx").on(block.slug), 
     nameIndex: index("name_idx").on(block.name),
     categoryIndex: index("category_idx").on(block.category),
   }),
@@ -59,7 +56,7 @@ export const blockVariants = createTable(
   "block_variant",
   {
     id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-    blockSlug: varchar("block_slug", { length: 256 }).notNull(), // Use slug to relate to blocks
+    blockSlug: varchar("block_slug", { length: 256 }).notNull(), 
     variantName: varchar("variant_name", { length: 256 }).notNull(),
     isFree: boolean("is_free").default(false).notNull(),
     codeSnippet: text("code_snippet"),
@@ -69,7 +66,7 @@ export const blockVariants = createTable(
     updatedAt: timestamp("updated_at").onUpdateNow(),
   },
   (variant) => ({
-    blockSlugIndex: index("block_slug_idx").on(variant.blockSlug), // Index for blockSlug
+    blockSlugIndex: index("block_slug_idx").on(variant.blockSlug), 
     variantNameIndex: index("variant_name_idx").on(variant.variantName),
   }),
 )

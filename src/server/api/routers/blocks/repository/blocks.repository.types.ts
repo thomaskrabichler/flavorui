@@ -14,7 +14,8 @@ export type BlockVariant = {
   blockSlug: string
   variantName: string
   isFree: boolean
-  codeSnippet: string | null | undefined
+  codeSnippet: string
+  // codeSnippet: string | null | undefined
   createdAt: Date
   updatedAt: Date | null
 }

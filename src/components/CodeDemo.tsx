@@ -49,7 +49,7 @@ export function CodeDemo() {
             <p className="mx-auto text-white">Code Container</p>
           </div>
           <div
-            className={`h-104 mx-auto max-w-[340px] rounded-lg border-2 ${activeView === "preview" ? "block" : "hidden md:hidden"} lg:block lg:w-1/3`}
+            className={`mx-auto h-104 max-w-[340px] rounded-lg border-2 ${activeView === "preview" ? "block" : "hidden md:hidden"} lg:block lg:w-1/3`}
           >
             <SignInPreview />
           </div>

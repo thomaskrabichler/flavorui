@@ -3,8 +3,10 @@
 import { useState } from "react"
 import { type BlockVariant } from "~/server/api/routers/blocks/repository/blocks.repository.types"
 import { Container } from "../Container"
-
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs"
 import { EyeIcon, CodeBracketIcon } from "@heroicons/react/24/outline"
+import prettier from "prettier/standalone"
 
 export default function BlockDetailsPage({
   variant,
@@ -13,6 +15,32 @@ export default function BlockDetailsPage({
 }) {
   const [activeView, setActiveView] = useState("code")
 
+  const formattedCode = prettier.format(variant.codeSnippet)
+  const codeString = `class CustomButton extends StatelessWidget {
+  final String platform;
+  final VoidCallback onPressed;
+  const CustomButton(
+      {super.key, required this.platform, required this.onPressed});
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Text("Press the below button to follow me on $platform"),
+      ElevatedButton(
+        onPressed: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Pressed Follow on $platform button"),
+              duration: const Duration(seconds: 1),
+            ),
+          );
+          onPressed();
+        },
+        child: Text("Follow on $platform"),
+      )
+    ]));
+  }
+}`
   return (
     <Container className="mt-10">
       <div className="mb-2  flex justify-between ">
@@ -69,11 +97,20 @@ export default function BlockDetailsPage({
           </button>
         </div>
       </div>
+
       <div
         className={`h-104 rounded-xl bg-slate-900 ${activeView === "code" ? "block" : "hidden"} ${activeView === "code" ? "block" : "hidden"}`}
       >
-        <p className="mx-auto text-white">{variant.codeSnippet}</p>
+        <SyntaxHighlighter
+          language="dart"
+          style={atomOneDark}
+          className="rounded-xl"
+        >
+          {codeString}
+          {/* {formattedCode} */}
+        </SyntaxHighlighter>
       </div>
+
       <div
         className={`h-104 rounded-xl bg-slate-900 ${activeView === "preview" ? "block" : "hidden"} ${activeView === "preview" ? "block" : "hidden"}`}
       >

@@ -1,15 +1,14 @@
 // import "server-only"
 
 import { notFound } from 'next/navigation'
-import Footer from "~/components/Footer"
-
-import { Header } from "~/components/Header"
-import HeadingBlocks from "~/components/blocks/HeadingBlocks"
 import { api } from "~/trpc/server"
-import BlocksPageGrid from "~/components/blocks/BlocksPageGrid"
-import { Container } from "~/components/Container"
-import CategorySelection from "~/components/blocks/CategorySelection"
-import SearchInput from "~/components/blocks/SearchInput"
+import {Header} from '../_components/header'
+import HeadingBlocks from '../_components/_blocks/heading-blocks'
+import {Container} from '../_components/container'
+import SearchInput from '../_components/_blocks/search-input'
+import CategorySelection from '../_components/_blocks/category-selection'
+import BlocksPageGrid from '../_components/_blocks/blocks-page-grid'
+import Footer from '../_components/footer'
 
 export default async function Blocks() {
   const blocks = await api.blocks.getAllBlocks.query()

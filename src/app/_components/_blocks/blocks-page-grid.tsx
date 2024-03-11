@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { type GetBlocks } from "~/server/api/routers/blocks/blocks.types"
-import { BlockLink } from "./BlockLink"
+import { BlockLink } from "./block-link"
 
 const categoryColors: Record<string, string> = {
   Marketing: "bg-green-100 text-green-900",

@@ -1,6 +1,6 @@
-import { Button } from "./Button"
-import { Container } from "./Container"
-import GridComponents from "./GridComponents"
+import { Button } from "../button"
+import { Container } from "../container"
+import GridComponents from "./grid-components"
 
 const textGradient =
   "bg-gradient-to-r from-indigo-600  to-blue-400 inline-block text-transparent bg-clip-text"

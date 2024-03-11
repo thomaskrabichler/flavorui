@@ -1,8 +1,8 @@
 import Link from "next/dist/client/link"
-import { Button } from "./Button"
-import { Container } from "./Container"
-import GridBlocks from "./GridBlocks"
-import GridComponents from "./GridComponents"
+import { Button } from "../button"
+import { Container } from "../container"
+import GridBlocks from "./grid-blocks"
+import GridComponents from "./grid-components"
 
 const textGradient =
   "bg-gradient-to-r from-indigo-600  to-blue-400 inline-block text-transparent bg-clip-text"

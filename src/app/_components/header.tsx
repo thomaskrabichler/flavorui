@@ -4,11 +4,11 @@ import { Fragment } from "react"
 import Link from "next/link"
 import { Popover, Transition } from "@headlessui/react"
 import clsx from "clsx"
+import { Container } from "./container"
+import { Logo } from "./logo"
+import { NavLink } from "./nav-link"
+import { Button } from "./button"
 
-import { Button } from "~/components/Button"
-import { Container } from "~/components/Container"
-import { Logo } from "~/components/Logo"
-import { NavLink } from "~/components/NavLink"
 
 function MobileNavLink({
   href,

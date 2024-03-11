@@ -1,12 +1,11 @@
 "server-only"
-import { CodeDemo } from "~/components/CodeDemo"
-import Footer from "~/components/Footer"
-
-import { Header } from "~/components/Header"
-import Hero from "~/components/Hero"
-import { LandingBlocks } from "~/components/LandingBlocks"
-import { LandingComponents } from "~/components/LandingComponents"
 import { unstable_noStore as noStore } from "next/cache"
+import {Header} from "./_components/header"
+import {CodeDemo} from "./_components/_landing/code-demo"
+import Hero from "./_components/_landing/hero"
+import {LandingComponents} from "./_components/_landing/landing-components"
+import {LandingBlocks} from "./_components/_landing/landing-blocks"
+import Footer from "./_components/footer"
 
 export default async function Home() {
   // noStore()

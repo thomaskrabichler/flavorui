@@ -1,9 +1,9 @@
-import { Container } from "~/components/Container"
-import Footer from "~/components/Footer"
-import { Header } from "~/components/Header"
-import BlockDetailsItem from "~/components/blocks/BlockDetailsItem"
 import { api } from "~/trpc/server"
 import { notFound } from "next/navigation"
+import {Header} from "~/app/_components/header"
+import {Container} from "~/app/_components/container"
+import BlockDetailsItem from "~/app/_components/_blocks/block-details-item"
+import Footer from "~/app/_components/footer"
 
 export default async function BlockDetailsPage({
   params,

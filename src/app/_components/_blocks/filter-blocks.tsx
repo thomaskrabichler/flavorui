@@ -1,6 +1,6 @@
-import { Container } from "../Container"
-import CategorySelection from "./CategorySelection"
-import SearchInput from "./SearchInput"
+import { Container } from "../container"
+import CategorySelection from "./category-selection"
+import SearchInput from "./search-input"
 
 export default function FilterBlocks({ blocksCount }: { blocksCount: number }) {
   return (

@@ -1,7 +1,7 @@
 import Link from "next/link"
-import { Button } from "./Button"
-import { Container } from "./Container"
-import Features from "./Features"
+import { Button } from "../button"
+import { Container } from "../container"
+import Features from "../features"
 
 export default function Hero() {
   return (

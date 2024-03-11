@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { type BlockVariant } from "~/server/api/routers/blocks/repository/blocks.repository.types"
-import { Container } from "../Container"
+import { Container } from "../container"
 import SyntaxHighlighter from "react-syntax-highlighter"
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs"
 import { EyeIcon, CodeBracketIcon } from "@heroicons/react/24/outline"

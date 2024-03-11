@@ -1,8 +1,8 @@
 "use client"
 import { useState } from "react"
-import { Button } from "./Button"
-import { Container } from "./Container"
-import SignInPreview from "./SignInPreview"
+import { Button } from "../button"
+import { Container } from "../container"
+import SignInPreview from "./sign-in-preview"
 
 export function CodeDemo() {
   const [activeView, setActiveView] = useState("code")

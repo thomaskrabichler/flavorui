@@ -5,7 +5,7 @@ import { type BlockVariant } from "~/server/api/routers/blocks/repository/blocks
 import { Container } from "../container"
 import SyntaxHighlighter from "react-syntax-highlighter"
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs"
-import { EyeIcon, CodeBracketIcon } from "@heroicons/react/24/outline"
+import { EyeIcon, CodeBracketIcon, ClipboardIcon } from "@heroicons/react/24/outline"
 import prettier from "prettier/standalone"
 
 export default function BlockDetailsPage({
@@ -29,6 +29,14 @@ export default function BlockDetailsPage({
 
     void formatCode()
   }, [variant.codeSnippet])
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      navigator.clipboard.writeText(text);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const codeString = `class CustomButton extends StatelessWidget {
   final String platform;
@@ -107,6 +115,19 @@ export default function BlockDetailsPage({
                 aria-hidden="true"
               />
               <p>Code</p>
+            </div>
+          </button>
+           {/* Copy to Clipboard Button */}
+           <button
+            onClick={() => copyToClipboard(formattedCode)}
+            className={`my-auto ml-2 rounded-lg p-2 ${activeView === "clipboard" ? "bg-blue-600/10" : ""} `}
+          >
+            <div className="flex gap-2">
+              <ClipboardIcon
+                className={`my-auto h-5 w-5 ${activeView === "code" ? "text-blue-600" : ""}`}
+                aria-hidden="true"
+              />
+              <p>Copy to Clipboard</p>
             </div>
           </button>
         </div>

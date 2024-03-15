@@ -1,5 +1,3 @@
-// import "server-only"
-
 import { notFound } from 'next/navigation'
 import { api } from "~/trpc/server"
 import {Header} from '../_components/header'

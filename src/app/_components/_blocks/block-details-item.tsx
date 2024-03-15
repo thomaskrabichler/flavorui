@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { type BlockVariant } from "~/server/api/routers/blocks/repository/blocks.repository.types"
 import { Container } from "../container"
 import SyntaxHighlighter from "react-syntax-highlighter"
@@ -14,8 +14,22 @@ export default function BlockDetailsPage({
   variant: BlockVariant
 }) {
   const [activeView, setActiveView] = useState("code")
+  const [formattedCode, setFormattedCode] = useState("")
+  useEffect(() => {
+    const formatCode = async () => {
+      try {
+        const formatted = await prettier.format(variant.codeSnippet)
+        setFormattedCode(formatted)
+        console.log(formatted)
+      } catch (error) {
+        console.error("Error formatting code:", error)
+        setFormattedCode(variant.codeSnippet) // Fallback to original snippet on error
+      }
+    }
 
-  const formattedCode = prettier.format(variant.codeSnippet)
+    void formatCode()
+  }, [variant.codeSnippet])
+
   const codeString = `class CustomButton extends StatelessWidget {
   final String platform;
   final VoidCallback onPressed;
@@ -106,8 +120,8 @@ export default function BlockDetailsPage({
           style={atomOneDark}
           className="rounded-xl"
         >
-          {codeString}
-          {/* {formattedCode} */}
+          {/* {codeString} */}
+          {formattedCode}
         </SyntaxHighlighter>
       </div>
 

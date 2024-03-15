@@ -36,17 +36,17 @@ export const blocks = createTable(
   {
     id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
     name: varchar("name", { length: 256 }).notNull(),
-    slug: varchar("slug", { length: 256 }).unique().notNull(), 
+    slug: varchar("slug", { length: 256 }).unique().notNull(),
     description: text("description").default("").notNull(),
     imagePath: text("imagePath").default("").notNull(),
     category: varchar("category", { length: 256 }).notNull(),
     createdAt: timestamp("created_at")
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
+      .default(sql`CURRENT_TIMESTAMP`),
+      // .notNull(),
     updatedAt: timestamp("updated_at").onUpdateNow(),
   },
   (block) => ({
-    slugIndex: index("slug_idx").on(block.slug), 
+    slugIndex: index("slug_idx").on(block.slug),
     nameIndex: index("name_idx").on(block.name),
     categoryIndex: index("category_idx").on(block.category),
   }),
@@ -56,17 +56,17 @@ export const blockVariants = createTable(
   "block_variant",
   {
     id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-    blockSlug: varchar("block_slug", { length: 256 }).notNull(), 
+    blockSlug: varchar("block_slug", { length: 256 }).notNull(),
     variantName: varchar("variant_name", { length: 256 }).notNull(),
     isFree: boolean("is_free").default(false).notNull(),
-    codeSnippet: text("code_snippet"),
+    codeSnippet: text("code_snippet").default("").notNull(),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updated_at").onUpdateNow(),
   },
   (variant) => ({
-    blockSlugIndex: index("block_slug_idx").on(variant.blockSlug), 
+    blockSlugIndex: index("block_slug_idx").on(variant.blockSlug),
     variantNameIndex: index("variant_name_idx").on(variant.variantName),
   }),
 )

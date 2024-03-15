@@ -3,8 +3,8 @@ import { type Block, type BlockVariant } from "./blocks.repository.types"
 import { blockVariants } from "~/server/db/schema"
 import { eq } from "drizzle-orm"
 import { Logger } from "~/server/api/common/logger"
-import { PlanetScaleDatabase } from "drizzle-orm/planetscale-serverless"
-import * as schema from "~/server/db/schema"
+import { type PlanetScaleDatabase } from "drizzle-orm/planetscale-serverless"
+import type * as schema from "~/server/db/schema"
 
 class BlocksRepository {
   // private readonly logger = new Logger(BlocksRepository.name);

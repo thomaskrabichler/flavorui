@@ -7,6 +7,7 @@ import {
   varchar,
   text,
   boolean,
+  int,
 } from "drizzle-orm/mysql-core"
 
 export const createTable = mysqlTableCreator((name) => name)
@@ -40,9 +41,10 @@ export const blocks = createTable(
     description: text("description").default("").notNull(),
     imagePath: text("imagePath").default("").notNull(),
     category: varchar("category", { length: 256 }).notNull(),
-    createdAt: timestamp("created_at")
-      .default(sql`CURRENT_TIMESTAMP`),
-      // .notNull(),
+    createdAt: timestamp("created_at") 
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    variantsCount: int("variants_count").default(0),
     updatedAt: timestamp("updated_at").onUpdateNow(),
   },
   (block) => ({

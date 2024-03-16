@@ -7,6 +7,7 @@ import SyntaxHighlighter from "react-syntax-highlighter"
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs"
 import { EyeIcon, CodeBracketIcon, ClipboardIcon } from "@heroicons/react/24/outline"
 import prettier from "prettier/standalone"
+import {Toaster, toast} from 'sonner'
 
 export default function BlockDetailsPage({
   variant,
@@ -33,7 +34,9 @@ export default function BlockDetailsPage({
   const copyToClipboard = async (text: string) => {
     try {
       navigator.clipboard.writeText(text);
+      toast.success('copied!')
     } catch (err) {
+      toast.error('failed!')
       console.error(err);
     }
   };

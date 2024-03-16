@@ -4,6 +4,7 @@ import { Inter, Lexend } from "next/font/google"
 
 import { TRPCReactProvider } from "~/trpc/react"
 import clsx from "clsx"
+import {Toaster, toast} from 'sonner'
 
 export const metadata = {
   title: "Flavor UI - Flutter UI Components & Templates",
@@ -28,6 +29,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
+  
 }) {
   return (
     <html
@@ -40,6 +42,7 @@ export default function RootLayout({
     >
       <body className="flex h-full flex-col">
         <TRPCReactProvider>{children}</TRPCReactProvider>
+        <Toaster richColors position="bottom-right"/>
       </body>
     </html>
   )

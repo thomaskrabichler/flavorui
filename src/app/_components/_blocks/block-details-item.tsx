@@ -6,7 +6,7 @@ import { Container } from "../container"
 import SyntaxHighlighter from "react-syntax-highlighter"
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs"
 import { EyeIcon, CodeBracketIcon, ClipboardIcon } from "@heroicons/react/24/outline"
-import prettier from "prettier/standalone"
+import {Toaster, toast} from 'sonner'
 
 export default function BlockDetailsPage({
   variant,
@@ -14,26 +14,13 @@ export default function BlockDetailsPage({
   variant: BlockVariant
 }) {
   const [activeView, setActiveView] = useState("code")
-  const [formattedCode, setFormattedCode] = useState("")
-  useEffect(() => {
-    const formatCode = async () => {
-      try {
-        const formatted = await prettier.format(variant.codeSnippet)
-        setFormattedCode(formatted)
-        console.log(formatted)
-      } catch (error) {
-        console.error("Error formatting code:", error)
-        setFormattedCode(variant.codeSnippet) // Fallback to original snippet on error
-      }
-    }
-
-    void formatCode()
-  }, [variant.codeSnippet])
 
   const copyToClipboard = async (text: string) => {
     try {
-      navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(text);
+      toast.success('copied!')
     } catch (err) {
+      toast.error('failed!')
       console.error(err);
     }
   };
@@ -94,15 +81,16 @@ export default function BlockDetailsPage({
           </button>
            {/* Copy to Clipboard Button */}
            <button
-            onClick={() => copyToClipboard(formattedCode)}
-            className={`my-auto ml-2 rounded-lg p-2 ${activeView === "clipboard" ? "bg-blue-600/10" : ""} `}
+            onClick={() => copyToClipboard(variant.codeSnippet)}
+            className={`my-auto ml-2 hover:text-blue-500 rounded-lg p-2   transform active:scale-90 transition-shadow `}
           >
             <div className="flex gap-2">
               <ClipboardIcon
-                className={`my-auto h-5 w-5 ${activeView === "code" ? "text-blue-600" : ""}`}
+                className={`my-auto h-5 w-5  `}
                 aria-hidden="true"
               />
-              <p>Copy to Clipboard</p>
+              {/* <p>Copy</p> */}
+              {/* <p>Copy to Clipboard</p> */}
             </div>
           </button>
         </div>
@@ -117,16 +105,20 @@ export default function BlockDetailsPage({
           className="rounded-xl"
         >
           {/* {codeString} */}
-          {formattedCode}
+          {variant.codeSnippet}
         </SyntaxHighlighter>
       </div>
 
       <div
-        className={`h-104 rounded-xl bg-slate-900 ${activeView === "preview" ? "block" : "hidden"} ${activeView === "preview" ? "block" : "hidden"}`}
+        className={`h-104 rounded-xl ${activeView === "preview" ? "block" : "hidden"} ${activeView === "preview" ? "block" : "hidden"}`}
       >
-        <p className="mx-auto text-white">
-          Tailwind Code or screenshot at first
-        </p>
+        <iframe
+          src="/flutter-widget/index.html"
+          width="100%"
+          height="400px"
+          frameBorder="0"
+          scrolling="no"
+        />
       </div>
     </Container>
   )

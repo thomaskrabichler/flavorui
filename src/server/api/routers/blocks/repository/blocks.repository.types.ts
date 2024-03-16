@@ -3,6 +3,7 @@ export type Block = {
   name: string
   slug: string
   description?: string
+  variantsCount: number,
   category: string
   imagePath: string | null | undefined
   createdAt: Date

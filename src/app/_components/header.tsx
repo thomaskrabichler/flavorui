@@ -122,7 +122,7 @@ export function Header() {
             <div className="hidden text-sm font-semibold md:block">
               <NavLink href="/login">Sign in</NavLink>
             </div>
-            <Button href="/register" color="slate">
+            <Button href="/all-access" color="slate">
               Get all-access
             </Button>
             <div className="-mr-1 md:hidden">

@@ -38,10 +38,6 @@ export default function GridBlocks({
                         <br></br>
                         {(await blockVariants(block.slug)).length} Variant(s)
                       </p>
-
-                      
-                       
-                    
                     </div>
                     <div
                       className={`z-10 my-auto rounded-md px-2 py-1 ${categoryColors[block.category] ?? "bg-gray-100 text-gray-900"}`}

@@ -147,11 +147,15 @@ export default function BlockDetailsPage({
       </div>
 
       <div
-        className={`h-104 rounded-xl bg-slate-900 ${activeView === "preview" ? "block" : "hidden"} ${activeView === "preview" ? "block" : "hidden"}`}
+        className={`h-104 rounded-xl ${activeView === "preview" ? "block" : "hidden"} ${activeView === "preview" ? "block" : "hidden"}`}
       >
-        <p className="mx-auto text-white">
-          Tailwind Code or screenshot at first
-        </p>
+        <iframe
+          src="/flutter-widget/index.html"
+          width="100%"
+          height="400px"
+          frameBorder="0"
+          scrolling="no"
+        />
       </div>
     </Container>
   )

@@ -38,31 +38,6 @@ export default function BlockDetailsPage({
     }
   };
 
-  const codeString = `class CustomButton extends StatelessWidget {
-  final String platform;
-  final VoidCallback onPressed;
-  const CustomButton(
-      {super.key, required this.platform, required this.onPressed});
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Text("Press the below button to follow me on $platform"),
-      ElevatedButton(
-        onPressed: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Pressed Follow on $platform button"),
-              duration: const Duration(seconds: 1),
-            ),
-          );
-          onPressed();
-        },
-        child: Text("Follow on $platform"),
-      )
-    ]));
-  }
-}`
   return (
     <Container className="mt-10">
       <div className="mb-2  flex justify-between ">
@@ -134,7 +109,7 @@ export default function BlockDetailsPage({
       </div>
 
       <div
-        className={`h-104 rounded-xl bg-slate-900 ${activeView === "code" ? "block" : "hidden"} ${activeView === "code" ? "block" : "hidden"}`}
+        className={`rounded-xl bg-slate-900 ${activeView === "code" ? "block" : "hidden"} ${activeView === "code" ? "block" : "hidden"}`}
       >
         <SyntaxHighlighter
           language="dart"

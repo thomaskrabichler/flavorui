@@ -14,14 +14,18 @@ export const lucia = new Lucia(adapter, {
   },
   getUserAttributes: (attributes) => {
     return {
+      id: attributes.id,
       email: attributes.email,
+      licenseKey: attributes.licenseKey,
+      createdAt: attributes.createdAt,
+      updatedAt: attributes.updatedAt,
     }
   },
   sessionExpiresIn: new TimeSpan(30, "d"),
   sessionCookie: {
     name: "session",
 
-    expires: false, // session cookies have very long lifespan (2 years)
+    expires: false,
     attributes: {
       secure: env.NODE_ENV === "production",
     },
@@ -30,9 +34,9 @@ export const lucia = new Lucia(adapter, {
 
 declare module "lucia" {
   interface Register {
-    Lucia: typeof lucia;
-    DatabaseSessionAttributes: DatabaseSessionAttributes;
-    DatabaseUserAttributes: DatabaseUserAttributes;
+    Lucia: typeof lucia
+    DatabaseSessionAttributes: DatabaseSessionAttributes
+    DatabaseUserAttributes: DatabaseUserAttributes
   }
 }
 

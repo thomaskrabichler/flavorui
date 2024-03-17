@@ -10,6 +10,8 @@ import {
   int,
 } from "drizzle-orm/mysql-core"
 
+import { createInsertSchema, createSelectSchema } from "drizzle-zod"
+
 export const createTable = mysqlTableCreator((name) => name)
 
 export const components = createTable(
@@ -32,6 +34,12 @@ export const components = createTable(
   }),
 )
 
+// Schema for inserting a component - used to validate API requests
+export const insertComponentSchema = createInsertSchema(components)
+
+// Schema for selecting a component - used to validate API responses
+export const selectComponentSchema = createSelectSchema(components)
+
 export const blocks = createTable(
   "block",
   {
@@ -41,7 +49,7 @@ export const blocks = createTable(
     description: text("description").default("").notNull(),
     imagePath: text("imagePath").default("").notNull(),
     category: varchar("category", { length: 256 }).notNull(),
-    createdAt: timestamp("created_at") 
+    createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     variantsCount: int("variants_count").default(0),
@@ -53,6 +61,9 @@ export const blocks = createTable(
     categoryIndex: index("category_idx").on(block.category),
   }),
 )
+
+export const insertBlockSchema = createInsertSchema(blocks)
+export const selectBlockSchema = createSelectSchema(blocks)
 
 export const blockVariants = createTable(
   "block_variant",
@@ -79,6 +90,10 @@ export const blockVariantsRelation = relations(blockVariants, ({ one }) => ({
     references: [blocks.slug], // Reference the slug field in blocks
   }),
 }))
+
+export const insertBlockVariantSchema = createInsertSchema(blockVariants)
+export const selectBlockVariantSchema = createSelectSchema(blockVariants)
+
 export const users = createTable(
   "user",
   {
@@ -95,3 +110,5 @@ export const users = createTable(
     emailIndex: index("email_idx").on(user.email),
   }),
 )
+export const insertUserSchema = createInsertSchema(users)
+export const selectUserSchema = createSelectSchema(users)

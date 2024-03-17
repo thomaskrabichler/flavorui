@@ -8,6 +8,7 @@ import {
   text,
   boolean,
   int,
+  datetime,
 } from "drizzle-orm/mysql-core"
 
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
@@ -97,18 +98,44 @@ export const selectBlockVariantSchema = createSelectSchema(blockVariants)
 export const users = createTable(
   "user",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-    email: varchar("email", { length: 256 }).notNull(),
+    id: varchar("id", { length: 21 }).primaryKey(),
+    email: varchar("email", { length: 255 }).unique().notNull(),
+    hashedPassword: varchar("hashed_password", { length: 255 }),
     isActive: boolean("is_active").default(true).notNull(),
     licenseKey: varchar("license_key", { length: 128 }),
-    createdAt: timestamp("created_at")
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").onUpdateNow(),
   },
   (user) => ({
     emailIndex: index("email_idx").on(user.email),
   }),
 )
+export type User = typeof users.$inferSelect
+export type NewUser = typeof users.$inferInsert
+
 export const insertUserSchema = createInsertSchema(users)
 export const selectUserSchema = createSelectSchema(users)
+
+export const sessions = createTable(
+  "sessions",
+  {
+    id: varchar("id", { length: 255 }).primaryKey(),
+    userId: varchar("user_id", { length: 21 }).notNull(),
+    expiresAt: datetime("expires_at").notNull(),
+  },
+  (t) => ({
+    userIdx: index("user_idx").on(t.userId),
+  }),
+)
+
+export const passwordResetTokens = createTable(
+  "password_reset_tokens",
+  {
+    id: varchar("id", { length: 40 }).primaryKey(),
+    userId: varchar("user_id", { length: 21 }).notNull(),
+    expiresAt: datetime("expires_at").notNull(),
+  },
+  (t) => ({
+    userIdx: index("user_idx").on(t.userId),
+  }),
+);

@@ -87,8 +87,8 @@ export const blockVariants = createTable(
 
 export const blockVariantsRelation = relations(blockVariants, ({ one }) => ({
   block: one(blocks, {
-    fields: [blockVariants.blockSlug], // Use blockSlug for relation
-    references: [blocks.slug], // Reference the slug field in blocks
+    fields: [blockVariants.blockSlug],
+    references: [blocks.slug],
   }),
 }))
 
@@ -100,7 +100,7 @@ export const users = createTable(
   {
     id: varchar("id", { length: 21 }).primaryKey(),
     email: varchar("email", { length: 255 }).unique().notNull(),
-    hashedPassword: varchar("hashed_password", { length: 255 }),
+    hashedPassword: varchar("hashed_password", { length: 255 }).notNull(),
     isActive: boolean("is_active").default(true).notNull(),
     licenseKey: varchar("license_key", { length: 128 }),
     createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -138,4 +138,4 @@ export const passwordResetTokens = createTable(
   (t) => ({
     userIdx: index("user_idx").on(t.userId),
   }),
-);
+)

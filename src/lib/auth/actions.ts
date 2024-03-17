@@ -1,11 +1,7 @@
 /* eslint @typescript-eslint/no-explicit-any:0, @typescript-eslint/prefer-optional-chain:0 */
-import { z } from "zod"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
-import { generateId, Scrypt } from "lucia"
-import { isWithinExpirationDate, TimeSpan, createDate } from "oslo"
-import { generateRandomString, alphabet } from "oslo/crypto"
-import { eq } from "drizzle-orm"
+import { generateId } from "lucia"
 import { lucia } from "~/lib/auth"
 import { Argon2id } from "oslo/password"
 import { db } from "~/server/db"
@@ -14,7 +10,6 @@ import {
   signupSchema,
   type LoginInput,
   type SignupInput,
-  resetPasswordSchema,
 } from "~/lib/validators/auth"
 import { users } from "~/server/db/schema"
 
@@ -27,6 +22,7 @@ export async function login(
   _: any,
   formData: FormData,
 ): Promise<ActionResponse<LoginInput>> {
+  "use server"
   const obj = Object.fromEntries(formData.entries())
 
   const parsed = loginSchema.safeParse(obj)

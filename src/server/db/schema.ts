@@ -1,51 +1,31 @@
 import { relations, sql } from "drizzle-orm"
 import {
-  bigint,
+  serial,
   index,
-  mysqlTableCreator,
+  pgTableCreator,
   timestamp,
   varchar,
   text,
   boolean,
-  int,
-} from "drizzle-orm/mysql-core"
+  integer,
+} from "drizzle-orm/pg-core"
 
-export const createTable = mysqlTableCreator((name) => name)
-
-export const components = createTable(
-  "component",
-  {
-    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-    name: varchar("name", { length: 256 }).notNull(),
-    description: text("description"),
-    category: varchar("category", { length: 256 }).notNull(),
-    codeSnippet: text("code_snippet").notNull(),
-    isFree: boolean("is_free").default(false),
-    createdAt: timestamp("created_at")
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updated_at").onUpdateNow(),
-  },
-  (component) => ({
-    nameIndex: index("name_idx").on(component.name),
-    categoryIndex: index("category_idx").on(component.category),
-  }),
-)
+export const createTable = pgTableCreator((name) => name)
 
 export const blocks = createTable(
   "block",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
+    id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }).notNull(),
     slug: varchar("slug", { length: 256 }).unique().notNull(),
     description: text("description").default("").notNull(),
-    imagePath: text("imagePath").default("").notNull(),
+    imagePath: text("image_path").default("").notNull(),
     category: varchar("category", { length: 256 }).notNull(),
-    createdAt: timestamp("created_at") 
+    createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    variantsCount: int("variants_count").default(0),
-    updatedAt: timestamp("updated_at").onUpdateNow(),
+    variantsCount: integer("variants_count").default(0),
+    updatedAt: timestamp("updated_at"),
   },
   (block) => ({
     slugIndex: index("slug_idx").on(block.slug),
@@ -57,7 +37,7 @@ export const blocks = createTable(
 export const blockVariants = createTable(
   "block_variant",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
+    id: serial("id").primaryKey(),
     blockSlug: varchar("block_slug", { length: 256 }).notNull(),
     variantName: varchar("variant_name", { length: 256 }).notNull(),
     isFree: boolean("is_free").default(false).notNull(),
@@ -65,7 +45,7 @@ export const blockVariants = createTable(
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    updatedAt: timestamp("updated_at").onUpdateNow(),
+    updatedAt: timestamp("updated_at"),
   },
   (variant) => ({
     blockSlugIndex: index("block_slug_idx").on(variant.blockSlug),
@@ -82,14 +62,14 @@ export const blockVariantsRelation = relations(blockVariants, ({ one }) => ({
 export const users = createTable(
   "user",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
+    id: serial("id").primaryKey(),
     email: varchar("email", { length: 256 }).notNull(),
     isActive: boolean("is_active").default(true).notNull(),
     licenseKey: varchar("license_key", { length: 128 }),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    updatedAt: timestamp("updated_at").onUpdateNow(),
+    updatedAt: timestamp("updated_at"),
   },
   (user) => ({
     emailIndex: index("email_idx").on(user.email),

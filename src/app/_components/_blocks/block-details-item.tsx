@@ -128,7 +128,7 @@ export default function BlockDetailsPage({
         className={`h-104 rounded-xl ${activeView === "preview" ? "block" : "hidden"} ${activeView === "preview" ? "block" : "hidden"}`}
       >
         <iframe
-          src="/flutter-widget/index.html"
+          src="/flutter-widget/index.html/#/customButton2"
           width="100%"
           height="400px"
           frameBorder="0"

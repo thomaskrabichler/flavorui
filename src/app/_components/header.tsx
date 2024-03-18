@@ -1,6 +1,6 @@
 "use client"
 
-import { Fragment } from "react"
+import { Fragment} from "react"
 import Link from "next/link"
 import { Popover, Transition } from "@headlessui/react"
 import clsx from "clsx"
@@ -8,7 +8,7 @@ import { Container } from "./container"
 import { Logo } from "./logo"
 import { NavLink } from "./nav-link"
 import { Button } from "./button"
-
+import { createClient } from "~/lib/supabase/client"
 
 function MobileNavLink({
   href,
@@ -98,6 +98,11 @@ function MobileNavigation() {
 }
 
 export function Header() {
+  const isLoggedIn = true
+  const handleLogout = async () => {
+    const supabaseClient = createClient()
+    await supabaseClient.auth.signOut()
+  }
   return (
     <header className="pt-10">
       <Container>
@@ -119,12 +124,20 @@ export function Header() {
 
           {/* Sign in/Register container */}
           <div className="flex items-center justify-end gap-x-5 md:gap-x-8">
-            <div className="hidden text-sm font-semibold md:block">
-              <NavLink href="/login">Sign in</NavLink>
-            </div>
-            <Button href="/register" color="slate">
-              Get all-access
-            </Button>
+            {!isLoggedIn ? (
+              <>
+                <div className="hidden text-sm font-semibold md:block">
+                  <NavLink href="/login">Sign in</NavLink>
+                </div>
+                <Button href="/register" color="slate">
+                  Get all-access
+                </Button>
+              </>
+            ) : (
+              <Button onClick={handleLogout} color="slate">
+                Logout
+              </Button>
+            )}
             <div className="-mr-1 md:hidden">
               <MobileNavigation />
             </div>

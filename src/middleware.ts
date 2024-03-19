@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { NextResponse, type NextRequest } from "next/server"
-import { updateSession } from "~/lib/supabase/middleware"
+import { updateSession } from "~/utils/supabase/middleware"
 
 export async function middleware(request: NextRequest) {
   const { response, user } = await updateSession(request)

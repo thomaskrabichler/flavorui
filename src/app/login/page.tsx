@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { login, signup } from "~/lib/supabase/actions"
+import { login, signup } from "~/utils/supabase/actions"
 
 export default function Login() {
   return (

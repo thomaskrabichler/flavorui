@@ -1,7 +1,7 @@
 
-import { Header } from "../_components/header"
 import Footer from "../_components/footer"
 import { Container } from "../_components/container"
+import Header from "../_components/header"
 
 export default function Templates() {
   return (

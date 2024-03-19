@@ -3,13 +3,11 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
-import { createClient } from '~/lib/supabase/server'
+import { createClient } from '~/utils/supabase/server'
 
 export async function login(formData: FormData) {
   const supabase = createClient()
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
   const data = {
     email: formData.get('email') as string,
     password: formData.get('password') as string,
@@ -28,7 +26,6 @@ export async function login(formData: FormData) {
 export async function signup(formData: FormData) {
   const supabase = createClient()
 
-  // type-casting here for convenience
   // in practice, you should validate your inputs
   const data = {
     email: formData.get('email') as string,
@@ -43,4 +40,22 @@ export async function signup(formData: FormData) {
 
   revalidatePath('/', 'layout')
   redirect('/')
+}
+
+export async function logout(formData: FormData) {
+  const pathName = String(formData.get("pathName")).trim()
+
+  const supabase = createClient()
+  const { error } = await supabase.auth.signOut()
+
+  if (error) {
+    console.log("error signing out")
+    // return getErrorRedirect(
+    //   pathName,
+    //   'Hmm... Something went wrong.',
+    //   'You could not be signed out.'
+    // );
+  }
+
+  return "/signin"
 }

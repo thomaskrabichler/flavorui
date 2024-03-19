@@ -1,15 +1,16 @@
 import { createClient } from "~/utils/supabase/server"
 import { HeaderLinks } from "./header-links"
+import { getUser } from "~/utils/auth-helpers/server"
 
 export default async function Header() {
   const supabase = createClient()
   const {
-    data: { user },
-  } = await supabase.auth.getUser()
+    data: { session },
+  } = await supabase.auth.getSession()
 
   return (
     <div>
-      <HeaderLinks user={user} />
+      <HeaderLinks user={session?.user} />
     </div>
   )
 }

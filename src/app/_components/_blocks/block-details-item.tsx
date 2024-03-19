@@ -28,9 +28,9 @@ export default function BlockDetailsPage({
   return (
     <Container className="mt-10">
       <div className="mb-2  flex justify-between ">
-        <p className="text-base font-medium text-slate-900">
+        <div className="text-base font-medium text-slate-900">
           {variant.variantName}
-        </p>
+        </div>
         <div className="flex md:hidden">
           <button
             onClick={() => setActiveView("preview")}

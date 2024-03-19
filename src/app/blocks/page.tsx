@@ -1,12 +1,12 @@
 import { notFound } from 'next/navigation'
 import { api } from "~/trpc/server"
-import {Header} from '../_components/header'
 import HeadingBlocks from '../_components/_blocks/heading-blocks'
 import {Container} from '../_components/container'
 import SearchInput from '../_components/_blocks/search-input'
 import CategorySelection from '../_components/_blocks/category-selection'
 import BlocksPageGrid from '../_components/_blocks/blocks-page-grid'
 import Footer from '../_components/footer'
+import Header from '../_components/header'
 
 export default async function Blocks() {
   const blocks = await api.blocks.getAllBlocks.query()

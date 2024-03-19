@@ -93,13 +93,6 @@ function MobileNavigation({ user }: HeaderLinksProps) {
             <MobileNavLink href="/blocks">Blocks</MobileNavLink>
             <MobileNavLink href="/templates">Templates</MobileNavLink>
 
-            {!user ? (
-              <>
-                <MobileNavLink href="/all-access">Get-all-access</MobileNavLink>
-              </>
-            ) : (
-              <div></div>
-            )}
             <hr className="m-2 border-slate-300/40" />
             {!user ? (
               <>
@@ -149,7 +142,7 @@ export function HeaderLinks({ user }: HeaderLinksProps) {
                 <div className="hidden text-sm font-semibold md:block">
                   <NavLink href="/login">Sign in</NavLink>
                 </div>
-                <Button href="/register" color="slate">
+                <Button href="/all-access" color="slate">
                   Get all-access
                 </Button>
               </>

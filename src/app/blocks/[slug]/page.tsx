@@ -1,6 +1,6 @@
 import { api } from "~/trpc/server"
 import { notFound } from "next/navigation"
-import {Container} from "~/app/_components/container"
+import { Container } from "~/app/_components/container"
 import BlockDetailsItem from "~/app/_components/_blocks/block-details-item"
 import Footer from "~/app/_components/footer"
 import Header from "~/app/_components/header"

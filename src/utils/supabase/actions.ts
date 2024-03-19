@@ -42,20 +42,3 @@ export async function signup(formData: FormData) {
   redirect('/')
 }
 
-export async function logout(formData: FormData) {
-  const pathName = String(formData.get("pathName")).trim()
-
-  const supabase = createClient()
-  const { error } = await supabase.auth.signOut()
-
-  if (error) {
-    console.log("error signing out")
-    // return getErrorRedirect(
-    //   pathName,
-    //   'Hmm... Something went wrong.',
-    //   'You could not be signed out.'
-    // );
-  }
-
-  return "/signin"
-}

@@ -10,10 +10,8 @@ import { NavLink } from "./nav-link"
 import { Button } from "./button"
 import { type User } from "@supabase/supabase-js"
 import { handleRequest } from "~/utils/auth-helpers/client"
-// import { logout } from "~/utils/supabase/actions"
-import { getRedirectMethod } from "~/utils/auth-helpers/settings"
 import { useRouter } from "next/navigation"
-import {SignOut} from "~/utils/auth-helpers/server"
+import { SignOut } from "~/utils/auth-helpers/server"
 
 function MobileNavLink({
   href,
@@ -103,9 +101,10 @@ function MobileNavigation() {
 }
 
 interface HeaderLinksProps {
-  user: User | null
+  user: User | undefined
 }
-export  function HeaderLinks({ user }: HeaderLinksProps) {
+
+export function HeaderLinks({ user }: HeaderLinksProps) {
   const router = useRouter()
   return (
     <header className="pt-10">
@@ -139,10 +138,8 @@ export  function HeaderLinks({ user }: HeaderLinksProps) {
               </>
             ) : (
               <form onSubmit={(e) => handleRequest(e, SignOut, router)}>
-                <button type="submit">Sign out</button>
+                <Button type="submit">Sign out</Button>
               </form>
-              // <Button onClick={handleLogout} color="slate">
-              // </Button>
             )}
             <div className="-mr-1 md:hidden">
               <MobileNavigation />

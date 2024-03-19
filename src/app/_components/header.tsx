@@ -1,6 +1,5 @@
 import { createClient } from "~/utils/supabase/server"
 import { HeaderLinks } from "./header-links"
-import { getUser } from "~/utils/auth-helpers/server"
 
 export default async function Header() {
   const supabase = createClient()

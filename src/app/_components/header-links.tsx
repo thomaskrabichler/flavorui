@@ -54,7 +54,8 @@ function MobileNavIcon({ open }: { open: boolean }) {
   )
 }
 
-function MobileNavigation() {
+function MobileNavigation({ user }: HeaderLinksProps) {
+  const router = useRouter()
   return (
     <Popover>
       <Popover.Button
@@ -88,11 +89,27 @@ function MobileNavigation() {
             as="div"
             className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
           >
-            <MobileNavLink href="#features">Features</MobileNavLink>
-            <MobileNavLink href="#testimonials">Testimonials</MobileNavLink>
-            <MobileNavLink href="#pricing">Pricing</MobileNavLink>
+            <MobileNavLink href="/components">Components</MobileNavLink>
+            <MobileNavLink href="/blocks">Blocks</MobileNavLink>
+            <MobileNavLink href="/templates">Templates</MobileNavLink>
+
+            {!user ? (
+              <>
+                <MobileNavLink href="/all-access">Get-all-access</MobileNavLink>
+              </>
+            ) : (
+              <div></div>
+            )}
             <hr className="m-2 border-slate-300/40" />
-            <MobileNavLink href="/login">Sign in</MobileNavLink>
+            {!user ? (
+              <>
+                <MobileNavLink href="/login">Sign in</MobileNavLink>
+              </>
+            ) : (
+              <form onSubmit={(e) => handleRequest(e, SignOut, router)}>
+                <button className="p-2">Sign out</button>
+              </form>
+            )}
           </Popover.Panel>
         </Transition.Child>
       </Transition.Root>
@@ -137,12 +154,14 @@ export function HeaderLinks({ user }: HeaderLinksProps) {
                 </Button>
               </>
             ) : (
-              <form onSubmit={(e) => handleRequest(e, SignOut, router)}>
-                <Button type="submit">Sign out</Button>
-              </form>
+              <div className="hidden md:block">
+                <form onSubmit={(e) => handleRequest(e, SignOut, router)}>
+                  <Button type="submit">Sign out</Button>
+                </form>
+              </div>
             )}
             <div className="-mr-1 md:hidden">
-              <MobileNavigation />
+              <MobileNavigation user={user} />
             </div>
           </div>
         </nav>

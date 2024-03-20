@@ -1,8 +1,18 @@
+import { redirect } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
-import { login, signup } from "~/utils/supabase/actions"
+import { login } from "~/utils/supabase/actions"
+import { createClient } from "~/utils/supabase/server"
 
-export default function Login() {
+export default async function Login() {
+  const supabase = createClient()
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+
+  if (session?.user) {
+    redirect("/")
+  }
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -14,8 +24,8 @@ export default function Login() {
             height={10}
             alt="flavorui"
           />
-          <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in
+          <h2 className="mt-2 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Sign in to your account
           </h2>
         </div>
 

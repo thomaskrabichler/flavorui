@@ -5,8 +5,8 @@ import { CheckIcon } from "@heroicons/react/20/solid"
 const tiers = [
   {
     name: "Basic",
-    id: "tier-hobby",
-    href: "#",
+    id: "tier-basic",
+    href: "/checkout/basicId",
     priceMonthly: "$149",
     description:
       "The perfect plan if you're just getting started with our product.",
@@ -20,8 +20,8 @@ const tiers = [
   },
   {
     name: "Pro",
-    id: "tier-enterprise",
-    href: "#",
+    id: "tier-pro",
+    href: "/checkout/proId",
     priceMonthly: "$199",
     description: "Dedicated support and infrastructure for your company.",
     features: [
@@ -40,7 +40,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
 }
 
-export default function Example() {
+export default function AllAccess() {
   return (
     <>
       <Header />

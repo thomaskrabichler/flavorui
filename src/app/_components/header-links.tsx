@@ -12,6 +12,7 @@ import { type User } from "@supabase/supabase-js"
 import { handleRequest } from "~/utils/auth-helpers/client"
 import { useRouter } from "next/navigation"
 import { SignOut } from "~/utils/auth-helpers/server"
+import AccountDropdown from "./account-dropdown"
 
 function MobileNavLink({
   href,
@@ -89,19 +90,38 @@ function MobileNavigation({ user }: HeaderLinksProps) {
             as="div"
             className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
           >
-            <MobileNavLink href="/components">Components</MobileNavLink>
-            <MobileNavLink href="/blocks">Blocks</MobileNavLink>
-            <MobileNavLink href="/templates">Templates</MobileNavLink>
-
+            <div className="font-semibold">
+              <MobileNavLink href="/components">Components</MobileNavLink>
+              <MobileNavLink href="/blocks">Blocks</MobileNavLink>
+              <MobileNavLink href="/templates">Templates</MobileNavLink>
+            </div>
+            {!user ? (
+              <></>
+            ) : (
+              <>
+                <MobileNavLink href="/blocks">Support</MobileNavLink>
+                <MobileNavLink href="/templates">License</MobileNavLink>
+              </>
+            )}
+            <hr className="m-2 border-slate-300/40" />
+            <div className="px-2 py-3">
+              <p className="text-sm text-slate-500">Signed in as</p>
+              <p className="mt-0.5  truncate text-gray-900">{user?.email}</p>
+            </div>
             <hr className="m-2 border-slate-300/40" />
             {!user ? (
               <>
                 <MobileNavLink href="/login">Sign in</MobileNavLink>
               </>
             ) : (
-              <form onSubmit={(e) => handleRequest(e, SignOut, router)}>
-                <button className="p-2">Sign out</button>
-              </form>
+              <>
+                <MobileNavLink href="/account-settings">
+                  Account settings
+                </MobileNavLink>
+                <form onSubmit={(e) => handleRequest(e, SignOut, router)}>
+                  <button className="p-2">Sign out</button>
+                </form>
+              </>
             )}
           </Popover.Panel>
         </Transition.Child>
@@ -148,9 +168,10 @@ export function HeaderLinks({ user }: HeaderLinksProps) {
               </>
             ) : (
               <div className="hidden md:block">
-                <form onSubmit={(e) => handleRequest(e, SignOut, router)}>
-                  <Button type="submit">Sign out</Button>
-                </form>
+                <AccountDropdown user={user} />
+                {/* <form onSubmit={(e) => handleRequest(e, SignOut, router)}> */}
+                {/*   <Button type="submit">Sign out</Button> */}
+                {/* </form> */}
               </div>
             )}
             <div className="-mr-1 md:hidden">

@@ -135,7 +135,6 @@ interface HeaderLinksProps {
 }
 
 export function HeaderLinks({ user }: HeaderLinksProps) {
-  const router = useRouter()
   return (
     <header className="pt-10">
       <Container>
@@ -169,9 +168,6 @@ export function HeaderLinks({ user }: HeaderLinksProps) {
             ) : (
               <div className="hidden md:block">
                 <AccountDropdown user={user} />
-                {/* <form onSubmit={(e) => handleRequest(e, SignOut, router)}> */}
-                {/*   <Button type="submit">Sign out</Button> */}
-                {/* </form> */}
               </div>
             )}
             <div className="-mr-1 md:hidden">

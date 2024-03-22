@@ -15,7 +15,7 @@ export const createTable = pgTableCreator((name) => name)
 export const blocks = createTable(
   "block",
   {
-    id: serial("id").primaryKey(),
+    id: serial("id").primaryKey().notNull(),
     name: varchar("name", { length: 256 }).notNull(),
     slug: varchar("slug", { length: 256 }).unique().notNull(),
     description: text("description").default("").notNull(),
@@ -24,7 +24,7 @@ export const blocks = createTable(
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    variantsCount: integer("variants_count").default(0),
+    variantsCount: integer("variants_count").default(0).notNull(),
     updatedAt: timestamp("updated_at"),
   },
   (block) => ({
@@ -41,7 +41,7 @@ export const blockVariants = createTable(
     blockSlug: varchar("block_slug", { length: 256 }).notNull(),
     variantName: varchar("variant_name", { length: 256 }).notNull(),
     isFree: boolean("is_free").default(false).notNull(),
-    codeSnippet: text("code_snippet").default("").notNull(),
+    codeSnippet: text("code_snippet").default(""),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),

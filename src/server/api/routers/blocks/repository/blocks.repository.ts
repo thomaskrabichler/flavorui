@@ -3,20 +3,20 @@ import { type Block, type BlockVariant } from "./blocks.repository.types"
 import { blockVariants } from "~/server/db/schema"
 import { eq } from "drizzle-orm"
 import { Logger } from "~/server/api/common/logger"
-import { type PlanetScaleDatabase } from "drizzle-orm/planetscale-serverless"
 import type * as schema from "~/server/db/schema"
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js"
 
 class BlocksRepository {
   // private readonly logger = new Logger(BlocksRepository.name);
 
   public async getBlocks(
-    db: PlanetScaleDatabase<typeof schema>,
+    db: PostgresJsDatabase<typeof schema>,
   ): Promise<Block[]> {
     return await db.query.blocks.findMany()
   }
 
   public async getPublicVariantsBySlug(
-    db: PlanetScaleDatabase<typeof schema>,
+    db: PostgresJsDatabase<typeof schema>,
     slug: string,
   ): Promise<BlockVariant[]> {
     const rows = await db.query.blockVariants.findMany({
@@ -25,14 +25,14 @@ class BlocksRepository {
 
     const variants: BlockVariant[] = rows.map((variant) => ({
       ...variant,
-      codeSnippet: variant.isFree ? variant.codeSnippet : null,
+      codeSnippet: variant.isFree ? variant.codeSnippet : '',
     }))
 
     return variants
   }
 
   public async getPremiumVariantsBySlug(
-    db: PlanetScaleDatabase<typeof schema>,
+    db: PostgresJsDatabase<typeof schema>,
     slug: string,
   ): Promise<BlockVariant[]> {
     const rows = await db.query.blockVariants.findMany({

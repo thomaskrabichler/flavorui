@@ -1,4 +1,3 @@
-import { type PlanetScaleDatabase } from "drizzle-orm/planetscale-serverless"
 import {
   type GetBlocks,
   type GetPremiumBlockVariants,
@@ -8,17 +7,19 @@ import { blocksRepository } from "../repository/blocks.repository"
 import type * as schema from "~/server/db/schema"
 import { unstable_cache } from "next/cache"
 import { revalidationTime } from "~/server/api/common/utils/server.constants"
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js"
 
 class BlocksService {
+  //TODO change planetscale to postgres
   public async getPremiumVariants(
-    db: PlanetScaleDatabase<typeof schema>,
+    db: PostgresJsDatabase<typeof schema>,
     slug: string,
   ): Promise<GetPremiumBlockVariants> {
     return blocksRepository.getPremiumVariantsBySlug(db, slug)
   }
 
   public async getPublicVariants(
-    db: PlanetScaleDatabase<typeof schema>,
+    db: PostgresJsDatabase<typeof schema>,
     slug: string,
   ): Promise<GetPublicBlockVariants> {
     const getCachedPublicVariants = unstable_cache(
@@ -35,7 +36,7 @@ class BlocksService {
   }
 
   public async getBlocks(
-    db: PlanetScaleDatabase<typeof schema>,
+    db: PostgresJsDatabase<typeof schema>,
   ): Promise<GetBlocks> {
     const getCachedBlocks = unstable_cache(
       async () => blocksRepository.getBlocks(db),

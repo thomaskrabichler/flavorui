@@ -1,3 +1,4 @@
+import { api } from "~/trpc/server"
 import Footer from "../_components/footer"
 import Header from "../_components/header"
 import { CheckIcon } from "@heroicons/react/20/solid"
@@ -40,7 +41,8 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
 }
 
-export default function AllAccess() {
+export default async function AllAccess() {
+  const products = await api.paddle.getAllProducts.query()
   return (
     <>
       <Header />
@@ -107,11 +109,18 @@ export default function AllAccess() {
                 </p>
                 <div
                   className={classNames(
-                    tier.featured ? "text-white" : "text-gray-900", "text-sm"
+                    tier.featured ? "text-white" : "text-gray-900",
+                    "text-sm",
                   )}
                 >
                   <p className="font-semibold">one-time-payment</p>
-                  <p className={classNames(tier.featured ? "text-slate-400" : "text-slate-500")}>plus local taxes</p>
+                  <p
+                    className={classNames(
+                      tier.featured ? "text-slate-400" : "text-slate-500",
+                    )}
+                  >
+                    plus local taxes
+                  </p>
                 </div>
               </div>
 
@@ -125,7 +134,7 @@ export default function AllAccess() {
                   "mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10",
                 )}
               >
-                Get all-access 
+                Get all-access
               </a>
               <ul
                 role="list"

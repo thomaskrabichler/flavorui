@@ -1,9 +1,10 @@
 // import { postRouter } from "~/server/api/routers/post"
 import { createTRPCRouter } from "~/server/api/trpc"
 import { blocksRouter } from "./routers/blocks/blocks.router"
+import {paddleRouter} from "./routers/paddle/paddle.router"
 
 export const appRouter = createTRPCRouter({
-  // post: postRouter,
+  paddle: paddleRouter,
   blocks: blocksRouter,
 })
 

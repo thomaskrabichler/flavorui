@@ -55,10 +55,11 @@ export const blockVariants = createTable(
 
 export const blockVariantsRelation = relations(blockVariants, ({ one }) => ({
   block: one(blocks, {
-    fields: [blockVariants.blockSlug], // Use blockSlug for relation
-    references: [blocks.slug], // Reference the slug field in blocks
+    fields: [blockVariants.blockSlug],
+    references: [blocks.slug],
   }),
 }))
+
 export const users = createTable(
   "user",
   {

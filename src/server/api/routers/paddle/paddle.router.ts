@@ -1,26 +1,16 @@
-
-import {
-  publicProcedure,
-  createTRPCRouter,
-  protectedProcedure,
-} from "../../trpc"
-// import { type GetBlocks } from "./blocks.types"
-// import { blocksService } from "./service/blocks.service"
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../../trpc"
 import { z } from "zod"
 import { paddleService } from "./service/paddle.service"
+import { type GetProducts } from "./paddle.types"
 
 export const paddleRouter = createTRPCRouter({
-  getAllProducts: protectedProcedure.query(async ({ ctx }): Promise<GetProducts> => {
-    return paddleService.getProducts()
-    // return blocksService.getBlocks(ctx.db)
-  }),
-  getPublicVariants: protectedProcedure
-    .input(z.object({ slug: z.string() }))
-    .query(async ({ ctx, input }) => {
-    }),
+  getAllProducts: publicProcedure.query(
+    async ({ ctx }): Promise<GetProducts> => {
+      return paddleService.getProducts(ctx.paddle)
+    },
+  ),
 
-  getPremiumVariants: protectedProcedure
-    .input(z.object({ slug: z.string() }))
-    .query(async ({ ctx, input }) => {
-    }),
+  getProductById: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => paddleService.getProducts(ctx.paddle)),
 })

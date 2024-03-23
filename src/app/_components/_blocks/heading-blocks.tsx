@@ -1,8 +1,17 @@
+import Breadcrumbs from "../breadcrumbs"
 import { Container } from "../container"
+
+const pages = [
+  { name: 'Blocks', href: '/blocks', current: true },
+];
+
 
 export default function HeadingBlocks() {
   return (
+
     <Container className="pt-20">
+      <Breadcrumbs pages={pages} />
+      <br />
       <h1 className="mb-2 text-3xl font-extrabold">
         Flavor Blocks - Flutter UI components
       </h1>

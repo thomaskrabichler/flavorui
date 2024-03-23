@@ -11,6 +11,7 @@ import superjson from "superjson"
 import { ZodError } from "zod"
 
 import { db } from "~/server/db"
+import { paddle } from "~/server/utils/paddle-provider"
 
 /**
  * 1. CONTEXT
@@ -28,6 +29,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
   //TODO: provide paddle in ctx
   return {
     db,
+    paddle,
     ...opts,
   }
 }

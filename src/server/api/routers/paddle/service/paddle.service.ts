@@ -4,6 +4,8 @@ import type * as schema from "~/server/db/schema"
 import { prices, products } from "~/server/db/schema"
 import { eq } from "drizzle-orm"
 import { type Paddle, type Price, type Product } from "@paddle/paddle-node-sdk"
+import { unstable_cache } from "next/cache"
+import { revalidationTime } from "~/server/api/common/utils/server.constants"
 
 type PaddleProductWithPrices = Product & { prices: Price[] }
 class PaddleService {
@@ -15,49 +17,59 @@ class PaddleService {
    * @param db - The database object.
    * @returns A Promise that resolves to an array of Product objects.
    */
+
   public async getProductsFromDb(
     db: PostgresJsDatabase<typeof schema>,
     productId?: string,
   ): Promise<GetProductsWithPrices> {
-    const allProductsQuery = db
-      .select()
-      .from(products)
-      .innerJoin(prices, eq(products.id, prices.productId))
+    const cacheKey = productId ? `products-${productId}` : "all-products"
 
-    const filteredQuery =
-      productId !== undefined
-        ? db
-            .select()
-            .from(products)
-            .where(eq(products.id, productId))
-            .innerJoin(prices, eq(products.id, prices.productId))
-        : allProductsQuery
+    const getCachedProducts = unstable_cache(
+      async () => {
+        const allProductsQuery = db
+          .select()
+          .from(products)
+          .innerJoin(prices, eq(products.id, prices.productId))
 
-    const result = await filteredQuery
+        const query =
+          productId !== undefined
+            ? db
+                .select()
+                .from(products)
+                .where(eq(products.id, productId))
+                .innerJoin(prices, eq(products.id, prices.productId))
+            : allProductsQuery
 
-    const productsWithPrices = result.reduce(
-      (acc: GetProductsWithPrices, item) => {
-        const { product, price } = item
+        const result = await query
 
-        let productEntry = acc.find((p) => p.id === product.id)
-        if (!productEntry) {
-          productEntry = { ...product, prices: [] }
-          acc.push(productEntry)
-        }
+        return result.reduce((acc: GetProductsWithPrices, item) => {
+          const { product, price } = item
 
-        productEntry.prices.push({
-          ...price,
-          unitPriceOverrides: price.unitPriceOverrides,
-        })
+          let productEntry = acc.find((p) => p.id === product.id)
+          if (!productEntry) {
+            productEntry = { ...product, prices: [] }
+            acc.push(productEntry)
+          }
 
-        return acc
+          productEntry.prices.push({
+            ...price,
+            unitPriceOverrides: price.unitPriceOverrides,
+          })
+
+          return acc
+        }, [])
       },
-      [],
+      [cacheKey],
+      {
+        revalidate: revalidationTime,
+        tags: [cacheKey],
+      },
     )
 
+    // Fetch and return the cached products
+    const productsWithPrices = await getCachedProducts()
     return productsWithPrices
   }
-
   /**
    * Calls the Paddle API to get a list of products without prices.
    *

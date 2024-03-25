@@ -9,9 +9,11 @@ export default async function Checkout({ paddle, params }: CheckoutProps) {
   const product = await api.paddle.getProductById.query({
     id: params.slug,
   })
+
   if (!product || product.length === 0) {
     notFound()
   }
+
   return (
     <>
       <div>checkout for product {product[0]?.name}</div>

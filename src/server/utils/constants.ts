@@ -1,4 +1,5 @@
-import { type UnitPriceOverride } from "../api/routers/paddle/paddle.types"
+import {type UnitPriceOverride} from "~/utils/paddle/paddle.types"
+
 export const defaultFeatures: string[] = ["Lifetime access, Free updates"]
 export const defaultUnitPriceOverrides: UnitPriceOverride[] = [
   {

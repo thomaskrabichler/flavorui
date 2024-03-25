@@ -5,10 +5,22 @@ import CheckoutPaddle from "~/app/_components/_checkout/checkout-paddle"
 interface CheckoutProps {
   params: { slug: string }
 }
-export default async function Checkout({  params }: CheckoutProps) {
+export default async function Checkout({ params }: CheckoutProps) {
+  //Maybe fetch directly from the Paddle API for consistency
   const product = await api.paddle.getProductById.query({
     id: params.slug,
   })
+  //TODO: Write new function that returns the product from the db and the price from Paddle and return
+  // as one object
+  {
+    /* const price = await api.paddle.getPaddlePrice.query({ */
+  }
+  {
+    /*   id: params.slug, */
+  }
+  {
+    /* }) */
+  }
 
   if (!product || product.length === 0) {
     notFound()
@@ -16,7 +28,10 @@ export default async function Checkout({  params }: CheckoutProps) {
 
   return (
     <>
-      <CheckoutPaddle priceId={product[0]?.prices[0]?.id} />
+      <CheckoutPaddle
+        product={product[0]}
+        priceId={product[0]?.prices[0]?.id}
+      />
     </>
   )
 }

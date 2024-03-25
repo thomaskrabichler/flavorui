@@ -3,6 +3,7 @@ import Footer from "../_components/footer"
 import Header from "../_components/header"
 import { CheckIcon } from "@heroicons/react/20/solid"
 import CheckoutButton from "../_components/_checkout/checkout-button"
+import { type ProductWithPrices } from "~/utils/paddle/paddle.types"
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
@@ -39,7 +40,7 @@ export default async function AllAccess() {
           reprehenderit in aliquid fugiat dolorum voluptatibus.
         </p>
         <div className="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
-          {products.map((product, tierIdx) => (
+          {products.map((product: ProductWithPrices, tierIdx: number) => (
             <div
               key={product.id}
               className={classNames(

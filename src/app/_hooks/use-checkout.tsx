@@ -9,6 +9,7 @@ const useCheckout = ({ priceId }: UseCheckoutProps) => {
   const paddle = usePaddle()
 
   useEffect(() => {
+      console.log(priceId)
     const openCheckout = () => {
       if (priceId) {
         paddle?.Checkout.open({
@@ -19,16 +20,22 @@ const useCheckout = ({ priceId }: UseCheckoutProps) => {
             },
           ],
           customData: {},
-          settings: {},
+          settings: {
+            displayMode: "inline",
+            frameTarget: "checkout-container",
+            frameInitialHeight: 600,
+            frameStyle:
+              "width: 100%; background-color: transparent; border: none;",
+          },
         })
       } else {
         console.error("Price ID is missing")
-        // TODO: Handle error 
+        // TODO: Handle error
       }
     }
 
     openCheckout()
-  }, [paddle, priceId]) 
+  }, [paddle, priceId])
 }
 
 export default useCheckout

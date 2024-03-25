@@ -1,4 +1,3 @@
-import { type GetProductsWithPrices } from "../paddle.types"
 import { type PostgresJsDatabase } from "drizzle-orm/postgres-js"
 import type * as schema from "~/server/db/schema"
 import { prices, products } from "~/server/db/schema"
@@ -6,6 +5,7 @@ import { eq } from "drizzle-orm"
 import { type Paddle, type Price, type Product } from "@paddle/paddle-node-sdk"
 import { unstable_cache } from "next/cache"
 import { revalidationTime } from "~/server/api/common/utils/server.constants"
+import { GetProductsWithPrices } from "~/utils/paddle/paddle.types"
 
 type PaddleProductWithPrices = Product & { prices: Price[] }
 class PaddleService {
@@ -22,10 +22,9 @@ class PaddleService {
     db: PostgresJsDatabase<typeof schema>,
     productId?: string,
   ): Promise<GetProductsWithPrices> {
-
     //TODO: make caching optional (needed for checkout page, as the price
     //needs to be up to date always)
-      
+
     const cacheKey = productId ? `products-${productId}` : "all-products"
 
     const getCachedProducts = unstable_cache(
@@ -86,11 +85,29 @@ class PaddleService {
     return products
   }
 
-  public async getPrices(paddle: Paddle): Promise<Price[]> {
-    const pricesCollection = paddle.prices.list()
+  //TODO: Write new function that returns the product from the db and the price from Paddle and return
+  // as one object
+
+  public async getAllPrices(paddle: Paddle, priceId: string): Promise<Price[]> {
+    const pricesCollection = paddle.prices.list({ productId: [priceId] })
     const prices = await pricesCollection.next()
 
     return prices
+  }
+
+  public async getPricesByProductId(
+    paddle: Paddle,
+    productId: string,
+  ): Promise<Price[]> {
+    const pricesCollection = paddle.prices.list({ productId: [productId] })
+    const prices = await pricesCollection.next()
+
+    return prices
+  }
+
+  public async getPriceById(paddle: Paddle, priceId: string): Promise<Price> {
+    const price = await paddle.prices.get(priceId)
+    return price
   }
 
   /**

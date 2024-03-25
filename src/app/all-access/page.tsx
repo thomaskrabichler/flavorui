@@ -3,47 +3,12 @@ import Footer from "../_components/footer"
 import Header from "../_components/header"
 import { CheckIcon } from "@heroicons/react/20/solid"
 
-const tiers = [
-  {
-    name: "Basic",
-    id: "tier-basic",
-    href: "/checkout/basicId",
-    priceMonthly: "$149",
-    description:
-      "The perfect plan if you're just getting started with our product.",
-    features: [
-      "Over 300+ Components",
-      "Lifetime updates",
-      "Advanced analytics",
-      "24-hour support response time",
-    ],
-    featured: false,
-  },
-  {
-    name: "Pro",
-    id: "tier-pro",
-    href: "/checkout/proId",
-    priceMonthly: "$199",
-    description: "Dedicated support and infrastructure for your company.",
-    features: [
-      "App templates",
-      "Unlimited subscribers",
-      "Advanced analytics",
-      "Dedicated support representative",
-      "Marketing automations",
-      "Custom integrations",
-    ],
-    featured: true,
-  },
-]
-
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
 }
 
 export default async function AllAccess() {
   const products = await api.paddle.getAllProducts.query()
-  // console.log(products[1]?.prices[0]?.unitPriceOverrides)
   return (
     <>
       <Header />
@@ -73,14 +38,14 @@ export default async function AllAccess() {
           reprehenderit in aliquid fugiat dolorum voluptatibus.
         </p>
         <div className="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
-          {tiers.map((tier, tierIdx) => (
+          {products.map((product, tierIdx) => (
             <div
-              key={tier.id}
+              key={product.id}
               className={classNames(
-                tier.featured
+                product.featured
                   ? "relative bg-gray-900 shadow-2xl"
                   : "bg-white/60 sm:mx-8 lg:mx-0",
-                tier.featured
+                product.featured
                   ? ""
                   : tierIdx === 0
                     ? "rounded-t-3xl sm:rounded-b-none lg:rounded-bl-3xl lg:rounded-tr-none"
@@ -89,35 +54,35 @@ export default async function AllAccess() {
               )}
             >
               <h3
-                id={tier.id}
+                id={product.id}
                 className={classNames(
-                  tier.featured ? "text-blue-400" : "text-blue-600",
+                  product.featured ? "text-blue-400" : "text-blue-600",
                   "text-base font-semibold leading-7",
                 )}
               >
-                {tier.name}
+                {product.name}
               </h3>
               <div className="mt-4 flex gap-x-4">
                 <p>
                   <span
                     className={classNames(
-                      tier.featured ? "text-white" : "text-gray-900",
+                      product.featured ? "text-white" : "text-gray-900",
                       "text-5xl font-bold tracking-tight",
                     )}
                   >
-                    {tier.priceMonthly}
+                    {`€${product.prices[0]?.unitAmount}`}
                   </span>
                 </p>
                 <div
                   className={classNames(
-                    tier.featured ? "text-white" : "text-gray-900",
+                    product.featured ? "text-white" : "text-gray-900",
                     "text-sm",
                   )}
                 >
                   <p className="font-semibold">one-time-payment</p>
                   <p
                     className={classNames(
-                      tier.featured ? "text-slate-400" : "text-slate-500",
+                      product.featured ? "text-slate-400" : "text-slate-500",
                     )}
                   >
                     plus local taxes
@@ -126,10 +91,10 @@ export default async function AllAccess() {
               </div>
 
               <a
-                href={tier.href}
-                aria-describedby={tier.id}
+                href={`/checkout/${product.id}`}
+                aria-describedby={product.id}
                 className={classNames(
-                  tier.featured
+                  product.featured
                     ? "bg-blue-500 text-white shadow-sm hover:bg-blue-400 focus-visible:outline-blue-500"
                     : "text-blue-600 ring-1 ring-inset ring-blue-200 hover:ring-blue-300 focus-visible:outline-blue-600",
                   "mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10",
@@ -140,15 +105,15 @@ export default async function AllAccess() {
               <ul
                 role="list"
                 className={classNames(
-                  tier.featured ? "text-gray-300" : "text-gray-600",
+                  product.featured ? "text-gray-300" : "text-gray-600",
                   "mt-8 space-y-3 text-sm leading-6 sm:mt-10",
                 )}
               >
-                {tier.features.map((feature) => (
+                {product.features.map((feature) => (
                   <li key={feature} className="flex gap-x-3">
                     <CheckIcon
                       className={classNames(
-                        tier.featured ? "text-blue-400" : "text-blue-600",
+                        product.featured ? "text-blue-400" : "text-blue-600",
                         "h-6 w-5 flex-none",
                       )}
                       aria-hidden="true"

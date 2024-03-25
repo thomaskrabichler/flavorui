@@ -2,6 +2,7 @@ import { api } from "~/trpc/server"
 import Footer from "../_components/footer"
 import Header from "../_components/header"
 import { CheckIcon } from "@heroicons/react/20/solid"
+import CheckoutButton from "../_components/_checkout/checkout-button"
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
@@ -126,6 +127,7 @@ export default async function AllAccess() {
           ))}
         </div>
       </div>
+      <CheckoutButton />
       <Footer />
     </>
   )

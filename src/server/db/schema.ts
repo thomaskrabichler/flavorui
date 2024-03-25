@@ -1,4 +1,3 @@
-import { UnitPriceOverride } from "@paddle/paddle-node-sdk"
 import { relations, sql } from "drizzle-orm"
 import {
   serial,
@@ -9,12 +8,23 @@ import {
   text,
   boolean,
   integer,
-  json,
   pgEnum,
+  customType,
 } from "drizzle-orm/pg-core"
 import { defaultFeatures, defaultUnitPriceOverrides } from "../utils/constants"
+import { type UnitPriceOverride } from "@paddle/paddle-node-sdk"
 
 export const createTable = pgTableCreator((name) => name)
+
+const customJson = <TData>(name: string) =>
+  customType<{ data: TData; feature: string }>({
+    dataType() {
+      return "json"
+    },
+    toDriver(value: TData): string {
+      return JSON.stringify(value)
+    },
+  })(name)
 
 export const blocks = createTable(
   "block",
@@ -75,7 +85,9 @@ export const products = createTable(
       .notNull(),
     updatedAt: timestamp("updated_at"),
     featured: boolean("featured").default(false).notNull(),
-    features: json("features").default(defaultFeatures).notNull(),
+    features: customJson<string[]>("features")
+      .default(defaultFeatures)
+      .notNull(),
   },
   (product) => ({
     nameIndex: index("product_name_idx").on(product.name),
@@ -90,7 +102,7 @@ export const prices = createTable(
     productId: varchar("product_id", { length: 256 }).notNull(),
     status: statusEnum("status").default(statusEnum.enumValues[1]),
     unitAmount: varchar("unit_amount", { length: 16 }).notNull(),
-    unitPriceOverrides: json("unit_price_overrides")
+    unitPriceOverrides: customJson<UnitPriceOverride[]>("unit_price_overrides")
       .default(defaultUnitPriceOverrides)
       .notNull(),
     createdAt: timestamp("created_at")

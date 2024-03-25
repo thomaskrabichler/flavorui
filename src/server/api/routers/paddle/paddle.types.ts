@@ -1,6 +1,7 @@
 import { type CountryCode } from "./paddle.constants"
 
 export type GetProducts = Product[]
+export type GetProductsWithPrices = ProductWithPrices[]
 export type GetProduct = Product
 
 export type GetPrices = Price[]
@@ -13,20 +14,20 @@ export type Product = {
   readonly createdAt: Date | null
   readonly updatedAt: Date | null
   readonly featured: boolean
-  readonly features: unknown
-  // readonly prices: Price[] | null
+  readonly features: string[]
 }
 
 export type Price = {
   readonly id: string
   readonly productId: string
-  readonly description: string
-  readonly name: string | null
-  readonly unitPrice: Money
+  readonly unitAmount: string
   readonly unitPriceOverrides: UnitPriceOverride[]
-  readonly createdAt: string
-  readonly updatedAt: string
+  readonly status: "active" | "inactive" | null
+  readonly createdAt: Date | null
+  readonly updatedAt: Date | null
 }
+
+export type ProductWithPrices = Product & { prices: Price[] }
 
 export type Money = {
   readonly amount: string
@@ -38,3 +39,4 @@ export type UnitPriceOverride = {
   readonly unitPrice: Money
 }
 
+// export type CurrencyCode = 'EUR' | 'CHF' | 'GBP';

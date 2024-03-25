@@ -1,6 +1,3 @@
-import { UnitPriceOverride } from "./paddle.types"
-
-
 export type CountryCode =
   | "AD"
   | "AE"

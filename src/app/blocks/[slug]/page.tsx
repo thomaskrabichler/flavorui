@@ -4,7 +4,6 @@ import { Container } from "~/app/_components/container"
 import BlockDetailsItem from "~/app/_components/_blocks/block-details-item"
 import Footer from "~/app/_components/footer"
 import Header from "~/app/_components/header"
-import { pages } from "next/dist/build/templates/app-page"
 import Breadcrumbs from "~/app/_components/breadcrumbs"
 
 export default async function BlockDetailsPage({

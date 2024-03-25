@@ -1,22 +1,20 @@
 import { type Paddle } from "@paddle/paddle-js"
+import { api } from "~/trpc/server"
+import { notFound } from "next/navigation"
 interface CheckoutProps {
   paddle: Paddle | undefined
+  params: { slug: string }
 }
-export default function Checkout({ paddle }: CheckoutProps) {
-  // const openCheckout = () => {
-  //   paddle?.Checkout.open({
-  //     items: [{ priceId: "YOUR_PRICE_ID", quantity: 1 }],
-  //   })
-  // }
-
+export default async function Checkout({ paddle, params }: CheckoutProps) {
+  const product = await api.paddle.getProductById.query({
+    id: params.slug,
+  })
+  if (!product || product.length === 0) {
+    notFound()
+  }
   return (
     <>
-      {/* <main>Checkout</main> */}
-      <div>
-      checkoi
-        {/* Your checkout UI components */}
-        {/* <button onClick={openCheckout}>Checkout</button> */}
-      </div>
+      <div>checkout for product {product[0]?.name}</div>
     </>
   )
 }

@@ -7,21 +7,33 @@ import { type Paddle, type Price, type Product } from "@paddle/paddle-node-sdk"
 
 type PaddleProductWithPrices = Product & { prices: Price[] }
 class PaddleService {
-
   /**
    * Retrieves a list of products from the database.
    * This function is primarily used for the all-access page to improve response times.
    *
+   * @paramt productId - The ID of the product to retrieve. If not provided, all products will be returned.
    * @param db - The database object.
    * @returns A Promise that resolves to an array of Product objects.
    */
   public async getProductsFromDb(
     db: PostgresJsDatabase<typeof schema>,
+    productId?: string,
   ): Promise<GetProductsWithPrices> {
-    const result = await db
+    const allProductsQuery = db
       .select()
       .from(products)
       .innerJoin(prices, eq(products.id, prices.productId))
+
+    const filteredQuery =
+      productId !== undefined
+        ? db
+            .select()
+            .from(products)
+            .where(eq(products.id, productId))
+            .innerJoin(prices, eq(products.id, prices.productId))
+        : allProductsQuery
+
+    const result = await filteredQuery
 
     const productsWithPrices = result.reduce(
       (acc: GetProductsWithPrices, item) => {

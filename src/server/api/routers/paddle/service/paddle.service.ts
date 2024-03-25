@@ -22,6 +22,10 @@ class PaddleService {
     db: PostgresJsDatabase<typeof schema>,
     productId?: string,
   ): Promise<GetProductsWithPrices> {
+
+    //TODO: make caching optional (needed for checkout page, as the price
+    //needs to be up to date always)
+      
     const cacheKey = productId ? `products-${productId}` : "all-products"
 
     const getCachedProducts = unstable_cache(

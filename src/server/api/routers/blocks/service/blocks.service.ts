@@ -7,7 +7,7 @@ import { blocksRepository } from "../repository/blocks.repository"
 import type * as schema from "~/server/db/schema"
 import { unstable_cache } from "next/cache"
 import { revalidationTime } from "~/server/api/common/utils/server.constants"
-import { PostgresJsDatabase } from "drizzle-orm/postgres-js"
+import { type PostgresJsDatabase } from "drizzle-orm/postgres-js"
 
 class BlocksService {
   //TODO change planetscale to postgres

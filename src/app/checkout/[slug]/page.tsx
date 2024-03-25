@@ -12,15 +12,9 @@ export default async function Checkout({ params }: CheckoutProps) {
   })
   //TODO: Write new function that returns the product from the db and the price from Paddle and return
   // as one object
-  {
-    /* const price = await api.paddle.getPaddlePrice.query({ */
-  }
-  {
-    /*   id: params.slug, */
-  }
-  {
-    /* }) */
-  }
+  {/* const price = await api.paddle.getPaddlePrice.query({ */}
+  {/*   id: params.slug, */}
+  {/* }) */}
 
   if (!product || product.length === 0) {
     notFound()
@@ -28,10 +22,7 @@ export default async function Checkout({ params }: CheckoutProps) {
 
   return (
     <>
-      <CheckoutPaddle
-        product={product[0]}
-        priceId={product[0]?.prices[0]?.id}
-      />
+      <CheckoutPaddle product={product[0]} priceId={product[0]?.prices[0]?.id} />
     </>
   )
 }

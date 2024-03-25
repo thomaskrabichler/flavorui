@@ -15,7 +15,7 @@ export type BlockVariant = {
   blockSlug: string
   variantName: string
   isFree: boolean
-  codeSnippet: string | null
+  codeSnippet: string 
   createdAt: Date
   updatedAt: Date | null
 }

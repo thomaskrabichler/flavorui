@@ -1,11 +1,11 @@
 import { type Paddle } from "@paddle/paddle-js"
 import { api } from "~/trpc/server"
 import { notFound } from "next/navigation"
+import CheckoutPaddle from "~/app/_components/_checkout/checkout-paddle"
 interface CheckoutProps {
-  paddle: Paddle | undefined
   params: { slug: string }
 }
-export default async function Checkout({ paddle, params }: CheckoutProps) {
+export default async function Checkout({  params }: CheckoutProps) {
   const product = await api.paddle.getProductById.query({
     id: params.slug,
   })
@@ -16,7 +16,7 @@ export default async function Checkout({ paddle, params }: CheckoutProps) {
 
   return (
     <>
-      <div>checkout for product {product[0]?.name}</div>
+      <CheckoutPaddle priceId={product[0]?.prices[0]?.id} />
     </>
   )
 }

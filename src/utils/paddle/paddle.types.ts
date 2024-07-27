@@ -1,14 +1,14 @@
-
+import { Price, Product } from "@paddle/paddle-node-sdk"
 import { type CountryCode } from "./paddle.constants"
 
-export type GetProducts = Product[]
-export type GetProductsWithPrices = ProductWithPrices[]
-export type GetProduct = Product
+export type GetDBProducts = DBProduct[]
+export type GetDBProductsWithDBPrices = ProductWithPrices[]
+export type GetDBProduct = DBProduct
 
-export type GetPrices = Price[]
-export type GetPrice = Price
+export type GetDBPrices = DBPrice[]
+export type GetDBPrice = DBPrice
 
-export type Product = {
+export type DBProduct = {
   readonly id: string
   readonly name: string
   readonly description: string | null
@@ -18,7 +18,7 @@ export type Product = {
   readonly features: string[]
 }
 
-export type Price = {
+export type DBPrice = {
   readonly id: string
   readonly productId: string
   readonly unitAmount: string
@@ -28,7 +28,8 @@ export type Price = {
   readonly updatedAt: Date | null
 }
 
-export type ProductWithPrices = Product & { prices: Price[] }
+export type ProductWithPrices = DBProduct & { prices: DBPrice[] }
+export type ProductWithPaddlePrices = DBProduct & { prices: Price[] }
 
 export type Money = {
   readonly amount: string

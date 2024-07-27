@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm"
 import { type Paddle, type Price, type Product } from "@paddle/paddle-node-sdk"
 import { unstable_cache } from "next/cache"
 import { revalidationTime } from "~/server/api/common/utils/server.constants"
-import { GetProductsWithPrices } from "~/utils/paddle/paddle.types"
+import { type GetDBProductsWithDBPrices } from "~/utils/paddle/paddle.types"
 
 type PaddleProductWithPrices = Product & { prices: Price[] }
 class PaddleService {
@@ -21,7 +21,8 @@ class PaddleService {
   public async getProductsFromDb(
     db: PostgresJsDatabase<typeof schema>,
     productId?: string,
-  ): Promise<GetProductsWithPrices> {
+  ): Promise<GetDBProductsWithDBPrices> {
+      
     //TODO: make caching optional (needed for checkout page, as the price
     //needs to be up to date always)
 
@@ -45,7 +46,7 @@ class PaddleService {
 
         const result = await query
 
-        return result.reduce((acc: GetProductsWithPrices, item) => {
+        return result.reduce((acc: GetDBProductsWithDBPrices, item) => {
           const { product, price } = item
 
           let productEntry = acc.find((p) => p.id === product.id)

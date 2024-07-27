@@ -5,7 +5,6 @@ import { Logo } from "../logo"
 import useCheckout from "~/app/_hooks/use-checkout"
 import {
   type ProductWithPrices,
-  type Product,
 } from "~/utils/paddle/paddle.types"
 import { notFound } from "next/navigation"
 import { type Price } from "@paddle/paddle-node-sdk"
@@ -24,7 +23,6 @@ export default function CheckoutPaddle({
     //TODO: Instead show error page
   }
   useCheckout({ priceId })
-  // useCheckout({ priceId: priceId.id })
 
   return (
     <>
